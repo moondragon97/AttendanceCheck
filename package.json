@@ -8,7 +8,7 @@
     "url": "git+https://github.com/moondragon97/NodeJSPracticeForBlog.git"
   },
   "scripts": {
-    "test": "babel-node test.js"
+    "test": "node test.js"
   },
   "author": "",
   "license": "ISC",
