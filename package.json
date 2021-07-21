@@ -1,0 +1,23 @@
+{
+  "name": "nodejspractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moondragon97/NodeJSPracticeForBlog.git"
+  },
+  "scripts": {
+    "test": "babel-node test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moondragon97/NodeJSPracticeForBlog/issues"
+  },
+  "homepage": "https://github.com/moondragon97/NodeJSPracticeForBlog#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8"
+  }
+}
