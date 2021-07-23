@@ -8,7 +8,7 @@
     "url": "git+https://github.com/moondragon97/NodeJSPracticeForBlog.git"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "nodemon --exec babel-node test.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +18,9 @@
   "homepage": "https://github.com/moondragon97/NodeJSPracticeForBlog#readme",
   "devDependencies": {
     "@babel/core": "^7.14.8",
-    "@babel/preset-env": "^7.14.8"
+    "@babel/node": "^7.14.7",
+    "@babel/preset-env": "^7.14.8",
+    "nodemon": "^2.0.12"
   },
   "dependencies": {
     "express": "^4.17.1"
