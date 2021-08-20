@@ -1,9 +1,11 @@
 import express from "express";
+import { join } from "../Controllers/userController";
 
-const homeRouter = express.Router();
+const rootRouter = express.Router();
 
-const homeHandle = (req, res) => res.render("home");
+const rootHandle = (req, res) => res.render("home");
 
-homeRouter.get("/", homeHandle);
+rootRouter.get("/", rootHandle);
+rootRouter.get("/join", join);
 
-export default homeRouter;
+export default rootRouter;
