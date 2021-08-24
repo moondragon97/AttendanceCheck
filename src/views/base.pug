@@ -8,10 +8,14 @@ html(lang="ko")
             h1 #{titleName}
             nav
                 ul 
-                    li
-                        a(href="/join") 회원가입
-                    li
-                        a(href="/login") 로그인
+                    if !loggedIn
+                        li
+                            a(href="/join") 회원가입
+                        li
+                            a(href="/login") 로그인
+                    else
+                        li
+                            a(href="/logout") 로그아웃
                     li
                         a(href="/users/check") 출석하기
         main
