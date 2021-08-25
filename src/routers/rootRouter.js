@@ -8,6 +8,5 @@ const rootHandle = (req, res) => res.render("home", {titleName: "Home"});
 rootRouter.get("/", rootHandle);
 rootRouter.route("/join").get(getJoin).post(postJoin);
 rootRouter.route("/login").get(getLogin).post(postLogin);
-rootRouter.get("/logout", logout);
 
 export default rootRouter;

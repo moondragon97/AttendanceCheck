@@ -55,3 +55,11 @@ export const logout = (req, res) => {
     req.session.destroy();
     return res.redirect("/");
 }
+
+export const getAttendance = (req, res) => {
+    console.log(req.session.loggedIn);
+    if(!req.session.loggedIn){
+        return res.redirect("/login");
+    }
+    return res.render("attendance", {titleName: "출석체크"});
+}
