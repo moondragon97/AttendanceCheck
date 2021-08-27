@@ -57,9 +57,16 @@ export const logout = (req, res) => {
 }
 
 export const getAttendance = (req, res) => {
-    console.log(req.session.loggedIn);
     if(!req.session.loggedIn){
         return res.redirect("/login");
     }
     return res.render("attendance", {titleName: "출석체크"});
+}
+
+export const postAttendance = async (req, res) => {
+    const {user: {_id}} = req.session;
+    const user = await User.findByIdAndUpdate(_id, {attendance: true});
+    user.attendance = true;
+    req.session.user = user;
+    return res.redirect("/user/attendance");
 }

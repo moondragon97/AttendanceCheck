@@ -18,7 +18,7 @@ app.use(session({
     resave: false,          // 변화가 있든 없든 세션을 매번 저장할지(갱실할지).
     saveUninitialize: false,  // 아무 변화 없는 새로운 session을 계속 저장할지(쌓을지).
     cookie:{
-        maxAge: 2000000,
+        maxAge: 20000000,
     }
 }))
 
