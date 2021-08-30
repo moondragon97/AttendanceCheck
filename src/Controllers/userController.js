@@ -46,7 +46,7 @@ export const postLogin = async (req, res) => {
         return res.status(400).render("login", {titleName: "로그인", errorMessage: "해당 아이디와 비밀번호가 일치하지 않습니다."});
     }
     req.session.loggedIn = true;
-    req.session.user = user;
+    req.session.loggedInUser = user;
     return res.redirect("/");
 }
 
@@ -57,16 +57,44 @@ export const logout = (req, res) => {
 }
 
 export const getAttendance = (req, res) => {
+    const {loggedInUser} = req.session;
     if(!req.session.loggedIn){
         return res.redirect("/login");
     }
-    return res.render("attendance", {titleName: "출석체크"});
+    return res.render("attendance", {titleName: "출석체크", user:loggedInUser});
 }
 
 export const postAttendance = async (req, res) => {
-    const {user: {_id}} = req.session;
+    const {loggedInUser: {_id}} = req.session;
     const user = await User.findByIdAndUpdate(_id, {attendance: true});
     user.attendance = true;
-    req.session.user = user;
+    req.session.loggedInUser = user;
     return res.redirect("/user/attendance");
 }
+
+export const startGithubLogin = (req, res) => {
+    const baseUrl = 'https://github.com/login/oauth/authorize';
+    const config = {
+        client_id: process.env.GITHUB_CLIENTID,
+        allow_signup: true,
+        scope: "read:user user:email",
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    return res.redirect(finalUrl);
+};
+
+export const finishGithubLogin = async (req, res) => {
+    const baseUrl = "https://github.com/login/oauth/access_token";
+    const config = {
+        client_id: process.env.GITHUB_CLIENTID,
+        client_secret: process.env.GITHUB_SECRET,
+        code: req.query.code,
+    };
+    const params = new URLSearchParams(config).toString();
+    const finalUrl = `${baseUrl}?${params}`;
+    const data = await fetch(finalUrl, {
+        method:"POST"
+    })
+    const json = await data.json();
+};
