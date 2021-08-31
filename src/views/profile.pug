@@ -1,0 +1,13 @@
+extends base.pug
+
+block content
+    ul
+        li 이미지
+        li 이름 : #{loggedInUser.name}
+        if loggedInUser.attendance
+            li 출석현황 : 완료
+        else
+            li 출석현황 : 미완료
+    a(href="/user/edit-profile") 정보 수정하기 &rarr;
+    br
+    a(href="/user/edit-password") 패스워드 수정하기 &rarr;

@@ -16,6 +16,8 @@ html(lang="ko")
                     else
                         li
                             a(href="/user/logout") 로그아웃
+                        li
+                            a(href=`/user/${loggedInUser._id}`) #{loggedInUser.name}님의 프로필
                     li
                         a(href="/user/attendance") 출석하기
         main

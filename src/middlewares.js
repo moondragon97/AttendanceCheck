@@ -1,5 +1,5 @@
 export const localsMiddleware = (req, res, next) => {
-    res.locals.loggedInUser = req.session.user
+    res.locals.loggedInUser = req.session.user || {};
     res.locals.siteName = "Lab";
     res.locals.loggedIn = req.session.loggedIn;
     next();

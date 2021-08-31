@@ -1,0 +1,9 @@
+extends base.pug
+
+block content
+    if errorMessage 
+        div=errorMessage
+    form(method="POST")
+        input(value=loggedInUser.name, placeholder="이름", type="text", name="name", required)
+        input(value=loggedInUser.email, placeholder="이메일", type="email", name="email", required)
+        input(type="submit", value="Join")
