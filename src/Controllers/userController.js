@@ -11,12 +11,12 @@ export const postJoin = async (req, res) => {
     if(password !== passwordConfirmation){
         return res.status(400).render("join", {titleName: "회원가입", errorMessage: "비밀번호가 일치하지 않습니다."});
     }
-    const exists = await User.exists({$or: [{userId}, {email}]});
+    const exists = await User.exists({userId});
     if(exists){
-        return res.status(400).render("join", {titleName: "회원가입", errorMessage: "이미 일치하는 아이디나 이메일이 있습니다."});
+        return res.status(400).render("join", {titleName: "회원가입", errorMessage: "이미 일치하는 아이디가 있습니다."});
     }
     try{
-        const user = await User.create({
+        await User.create({
             userId,
             password,
             name,
@@ -123,13 +123,9 @@ export const finishGithubLogin = async (req, res) => {
                 Authorization: `token ${access_token}`,
             }
         })).json();
+    
         
-        const emailObj = emailData.find((email) => email.primary === true && email.verified === true);
-        if(!emailObj){
-            return res.redirect("/login");
-        }
-        
-        let user = await User.findOne({email: emailObj.email});
+        let user = await User.findOne({userId: `${userData.login}@github.com`});
         if (!user) {
             user = await User.create({
                 userId: `${userData.login}@github.com`,
@@ -139,7 +135,7 @@ export const finishGithubLogin = async (req, res) => {
                 socialOnly: true,
                 avatarUrl: userData.avatar_url,               
                 });
-            }
+        }
         req.session.loggedIn = true;
         req.session.user = user;
         return res.redirect("/");
@@ -149,25 +145,47 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const getProfile = async (req, res) => {
-    console.log("getProfile");
     return res.render("profile", {titleName: "프로필"});
 };
 
 export const getProfileEdit = (req, res) => {
-    console.log("getEdit");
     return res.render("edit-profile", {titleName: "정보수정"});
 };
 
-export const postProfileEdit = (req, res) => {
-    const {_id} = req.session
-    return res.redirect(`/${_id}`);
+export const postProfileEdit = async (req, res) => {
+    const {body:{name, email}, file} = req;
+    const {_id, avatarUrl} = req.session.user;
+    const updateUser = await User.findByIdAndUpdate(_id, {
+        avatarUrl: file ? file.path : avatarUrl,
+        email,
+        name,
+    }, {new: true});
+
+    req.session.user = updateUser;
+    return res.redirect(`/user/${_id}`);
 };
 
 export const getPasswordEdit = (req, res) => {
     return res.render("edit-password", {titleName: "비민번호 변경"});
 };
 
-export const postPasswordEdit = (req, res) => {
+export const postPasswordEdit = async (req, res) => {
+    const {_id} = req.session.user;
+    const {oldPassword, newPassword, passwordConfirmation} = req.body;
+
+    const userData = await User.findById(_id);
+    const same = bcrypt.compare(oldPassword, userData.password)
+    if(!same){
+        return res.render("edit-password", {titleName: "비민번호 변경", errorMessage: "입력한 비밀번호가 기존의 비밀번호와 일치합니다."});
+    }
+
+    if(newPassword !== passwordConfirmation){
+        return res.render("edit-password", {titleName: "비민번호 변경", errorMessage: "비밀번호가 일치하지 않습니다."});
+    }
+    
+    userData.password = newPassword;
+    await userData.save();
+
     req.session.destroy();
     return res.redirect("/");
 };

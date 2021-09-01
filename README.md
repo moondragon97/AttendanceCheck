@@ -1,13 +1,15 @@
 -홈-
 홈 /
 
+
 -유저-
 회원가입 /join
 로그인 /login
 로그아웃 /logout
-프로필편집 /users/profile-edit
-회원탈퇴 /users/leave
-프로필보기   /users/profile
+프로필편집 /user/edit-profile
+패스워드변경 /user/edit-password
+회원탈퇴 /user/leave
+프로필보기   /(user._id)
 
 
 -게시물-
