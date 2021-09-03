@@ -1,0 +1,9 @@
+extends base.pug
+
+block content
+    if errorMessage
+        div=errorMessage
+    form(method="POST")
+        input(type="text", placeholder="제목", maxlength="20", minLength="3", name="title")
+        input(type="text", placeholder="내용", maxlength="1000", minLength="10", name="content")
+        input(type="submit", value="작성완료")

@@ -4,9 +4,10 @@ block content
     if errorMessage 
         div=errorMessage
     form(method="POST")
-        input(placeholder="Id", name="userId",type="text", required)
-        input(placeholder="Password", name="password", type="password", required)
-        input(placeholder="ConfirmPassword", name="passwordConfirmation", type="password", required)
-        input(placeholder="Name", type="text", name="name", required)
-        input(placeholder="Email", type="email", name="email", required)
-        input(type="submit", value="Join")
+        input(placeholder="아이디", name="userId",type="text", required)
+        input(placeholder="비밀번호", name="password", type="password", required)
+        input(placeholder="비밀번호 확인", name="passwordConfirmation", type="password", required)
+        input(placeholder="이름", type="text", name="name", required)
+        input(placeholder="학번", type="number", name="snum", required)
+        input(placeholder="이메일", type="email", name="email", required)
+        input(type="submit", value="회원가입")

@@ -7,19 +7,20 @@ export const getJoin = (req, res) => {
 };
 
 export const postJoin = async (req, res) => {
-    const {userId, password, passwordConfirmation, name, email} = req.body;
+    const {userId, password, passwordConfirmation, name, email, snum} = req.body;
     if(password !== passwordConfirmation){
         return res.status(400).render("join", {titleName: "회원가입", errorMessage: "비밀번호가 일치하지 않습니다."});
     }
     const exists = await User.exists({userId});
     if(exists){
-        return res.status(400).render("join", {titleName: "회원가입", errorMessage: "이미 일치하는 아이디가 있습니다."});
+        return res.status(400).render("join", {titleName: "회원가입", errorMessage: "해당 아이디는 이미 존재합니다."});
     }
     try{
         await User.create({
             userId,
             password,
             name,
+            snum,
             email,
         });
         return res.redirect("/login");
@@ -123,7 +124,7 @@ export const finishGithubLogin = async (req, res) => {
                 Authorization: `token ${access_token}`,
             }
         })).json();
-    
+        const emailObj = emailData.find((email) => email.primary === true && email.verified === true);
         
         let user = await User.findOne({userId: `${userData.login}@github.com`});
         if (!user) {
@@ -131,8 +132,9 @@ export const finishGithubLogin = async (req, res) => {
                 userId: `${userData.login}@github.com`,
                 password: "",
                 name: userData.name ? userData.name : userData.login,
-                email: emailData.email,
+                email: emailObj.email,
                 socialOnly: true,
+                snum: 1651008,
                 avatarUrl: userData.avatar_url,               
                 });
         }
@@ -149,16 +151,22 @@ export const getProfile = async (req, res) => {
 };
 
 export const getProfileEdit = (req, res) => {
+    const {_id} = req.session.user;
+    const paramId = req.params.id;
+    if(_id != paramId){
+        return res.redirect("/");
+    }
     return res.render("edit-profile", {titleName: "정보수정"});
 };
 
 export const postProfileEdit = async (req, res) => {
-    const {body:{name, email}, file} = req;
+    const {body:{name, email, snum}, file} = req;
     const {_id, avatarUrl} = req.session.user;
     const updateUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: file ? file.path : avatarUrl,
         email,
         name,
+        snum, 
     }, {new: true});
 
     req.session.user = updateUser;
@@ -166,6 +174,11 @@ export const postProfileEdit = async (req, res) => {
 };
 
 export const getPasswordEdit = (req, res) => {
+    const {_id} = req.session.user;
+    const paramId = req.params.id;
+    if(_id != paramId){
+        return res.redirect("/");
+    }
     return res.render("edit-password", {titleName: "비민번호 변경"});
 };
 
@@ -189,3 +202,14 @@ export const postPasswordEdit = async (req, res) => {
     req.session.destroy();
     return res.redirect("/");
 };
+
+export const leave = async (req, res) => {
+    const {_id} = req.session.user;
+    const paramId = req.params.id;
+    if(_id != paramId){
+        return res.redirect("/");
+    }
+    await User.findByIdAndRemove(_id);
+    req.session.destroy();
+    return res.redirect("/");
+}

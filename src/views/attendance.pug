@@ -3,7 +3,7 @@ extends base.pug
 block content
     form(method="POST")
         span 00:00:00  
-        if !user.attendance
+        if !loggedInUser.attendance
             input(type="submit", value="출석")
         else
             input(type="submit", value="출석완료", disabled=true)

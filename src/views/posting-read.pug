@@ -1,0 +1,11 @@
+extends base.pug
+
+block content
+    h1=posting.title
+    p=posting.content
+    br
+    br
+    if(posting.owner._id == loggedInUser._id)
+        a(href=`/board/${posting._id}/edit`) 게시물 수정 &rarr;
+        br
+        a(href=`/board/${posting._id}/remove`) 게시물 삭제

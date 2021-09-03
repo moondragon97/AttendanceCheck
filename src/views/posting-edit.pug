@@ -1,0 +1,7 @@
+extends base.pug
+
+block content
+    form(method="POST")
+        input(type="text", placeholder="제목", maxlength="20", minLength="3", name="title", value=posting.title)
+        input(type="text", placeholder="내용", maxlength="1000", minLength="10", name="content", value=posting.content)
+        input(type="submit", value="수정완료")

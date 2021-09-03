@@ -1,0 +1,10 @@
+mixin posting(posting)
+    a(href=`/board/${posting._id}`)
+        span=posting.title
+        div
+            span #{posting.meta.views}회
+        div
+            if(posting.owner !== null)
+                span 작성자 : #{posting.owner.name}
+            else
+                span 작성자 : 삭제된 계정

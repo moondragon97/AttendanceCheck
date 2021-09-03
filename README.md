@@ -15,9 +15,9 @@
 -게시물-
 게시판 /board
 게시물 작성 /board/enroll
-게시물(글, 이미지, 동영상) /board/bulletin
-게시물 편집 /board/edit
-게시물 삭제 /board/remove
+게시물(글, 이미지, 동영상) /board/:id
+게시물 편집 /board/:id/edit
+게시물 삭제 /board/:id/remove
 
 
 -출석체크-
