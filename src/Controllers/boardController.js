@@ -5,6 +5,19 @@ export const board = async (req, res) => {
     return res.render("board", {titleName: "게시판", postings});
 };
 
+export const search = async (req, res) => {
+    const {keyword} = req.body;
+    let postings = [];
+    if(keyword){
+        postings = await Posting.find({
+            title:{
+                $regex: new RegExp(`${keyword}`, "i"),
+            }
+        }).populate("owner");
+    }
+    return res.render("board", {titleName: "게시판", postings});
+}
+
 export const getEnroll = (req, res) => {
     return res.render("posting-enroll", {titleName: "게시물 등록"});
 };
@@ -12,12 +25,12 @@ export const getEnroll = (req, res) => {
 export const postEnroll = async (req, res) => {
     const {title, content} = req.body;
     const {_id} = req.session.user;
-    console.log(_id);
     try {
         await Posting.create({
             title,
             content,
             owner: _id,
+            createdAt: new Date().toISOString().replace('T', ' ').replace(/\..+/, ''),
         });
         return res.redirect("/board");    
     }catch(error){

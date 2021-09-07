@@ -3,6 +3,8 @@ mixin posting(posting)
         span=posting.title
         div
             span #{posting.meta.views}회
+            br
+            span=posting.createdAt
         div
             if(posting.owner !== null)
                 span 작성자 : #{posting.owner.name}

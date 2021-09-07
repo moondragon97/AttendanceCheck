@@ -1,4 +1,5 @@
 import multer from "multer";
+import User from "./models/User";
 
 export const localsMiddleware = (req, res, next) => {
     res.locals.loggedInUser = req.session.user || {};
@@ -22,3 +23,9 @@ export const protectSocialUser = (req, res, next) => {
 }
 
 export const uploadFiles = multer({dest:"uploads/"});
+
+export const attendanceInit = (req, res) => schedule.scheduleJob('39 * * * *', function(){
+    User.updateMany({"attendance": true}, {"$set":{"attendance": false}});
+    req.session.user.attendance = false;
+    console.l
+})

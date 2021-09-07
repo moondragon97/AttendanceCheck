@@ -9,6 +9,9 @@ block content
             span 게시물이 없습니다.
     br
     br
+    form(method="POST")
+        input(type="text", placeholder="검색", name="keyword")
+        input(type="submit", value="검색") 
     br
     if loggedIn
-        a(href="/board/enroll") 게시물 작성하기 
+        a(href="/board/enroll") 게시물 작성하기
