@@ -4,7 +4,7 @@ import { protectNotUser, protectSocialUser, uploadFiles } from "../middlewares";
 
 const rootRouter = express.Router();
 
-rootRouter.get("/logout", logout);
+rootRouter.get("/logout", protectNotUser, logout);
 rootRouter.route("/attendance").all(protectNotUser).get(getAttendance).post(postAttendance);
 rootRouter.get("/github/start", startGithubLogin);
 rootRouter.get("/github/finish", finishGithubLogin);

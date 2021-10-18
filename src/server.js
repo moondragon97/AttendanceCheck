@@ -2,10 +2,12 @@ import session from "express-session";
 import express from "express";
 import morgan from "morgan";
 import mongoStore from "connect-mongo";
+import cron from "node-cron";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
-import { localsMiddleware } from "./middlewares";
+import { initAttendance, localsMiddleware } from "./middlewares";
 import boardRouter from "./routers/boardRouter";
+import User from "./models/User";
 
 const app = express();
 
@@ -23,9 +25,20 @@ app.use(session({
         maxAge: 2000000,
     },
     store: mongoStore.create({mongoUrl: process.env.DB_URL}),
-}))
+}));
+
+cron.schedule("0 48 21 * * *", () => {
+    User.updateMany({}, {attendance: false}, function (err, docs){
+        if(err)
+            console.log(err);
+        else{
+            console.log(docs);
+        }
+    });
+});
 
 app.use(localsMiddleware);
+app.use(initAttendance);
 app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);

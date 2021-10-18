@@ -1,7 +1,6 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
-import schedule from "node-schedule";
 
 export const getJoin = (req, res) => {
     return res.render("join", {titleName: "회원가입"});
