@@ -27,7 +27,7 @@ app.use(session({
     store: mongoStore.create({mongoUrl: process.env.DB_URL}),
 }));
 
-cron.schedule("0 48 21 * * *", () => {
+cron.schedule("0 0 6 * * *", () => {
     User.updateMany({}, {attendance: false}, function (err, docs){
         if(err)
             console.log(err);
@@ -38,7 +38,6 @@ cron.schedule("0 48 21 * * *", () => {
 });
 
 app.use(localsMiddleware);
-app.use(initAttendance);
 app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);

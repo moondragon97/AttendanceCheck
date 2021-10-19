@@ -58,18 +58,30 @@ export const logout = (req, res) => {
     return res.redirect("/");
 }
 
-export const getAttendance = (req, res) => {
-    const {loggedInUser} = req.session;
+export const getAttendance = async (req, res) => {
+    const {_id} = req.session.user;
+    console.log("get");
+    const user = await User.findById(_id);
+    
+    // 매일 출석 초기화가 될 때 세션도 초기화
+    if(!user.attendance){
+        req.session.user = user;
+        res.locals.loggedInUser = req.session.user;
+    }
+
     if(!req.session.loggedIn){
         return res.redirect("/login");
     }
-    return res.render("attendance", {titleName: "출석체크", user:loggedInUser});
+    return res.render("attendance", {titleName: "출석체크"});
 }
 
 export const postAttendance = async (req, res) => {
-    const {user: {_id}} = req.session;
-    const user = await User.findByIdAndUpdate(_id, {attendance: true});
-    user.attendance = true;
+    const {_id} = req.session.user;
+    await User.findByIdAndUpdate(_id, {
+        attendance: true, 
+        attendanceTime: Date.now()
+    });
+    const user = await User.findById(_id);
     req.session.user = user;
     return res.redirect("/user/attendance");
 }
@@ -168,7 +180,7 @@ export const postProfileEdit = async (req, res) => {
         name,
         snum, 
     }, {new: true});
-
+    console.log(updateUser);
     req.session.user = updateUser;
     return res.redirect(`/user/${_id}`);
 };
