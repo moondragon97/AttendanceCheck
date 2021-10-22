@@ -5,7 +5,7 @@ import mongoStore from "connect-mongo";
 import cron from "node-cron";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
-import { initAttendance, localsMiddleware } from "./middlewares";
+import {localsMiddleware } from "./middlewares";
 import boardRouter from "./routers/boardRouter";
 import User from "./models/User";
 

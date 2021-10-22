@@ -7,8 +7,6 @@ const userSchema = new mongoose.Schema({
     name: {type: String, require: true},
     email: {type: String, require: true},
     snum: Number,
-    attendance: {type: Boolean, default: false},
-    attendanceTime: {type: Date},
     socialOnly: {type: Boolean, default: false},
     avatarUrl: String,
 });

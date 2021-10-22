@@ -1,6 +1,7 @@
 import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
+import Calendar from "../models/Calendar";
 
 export const getJoin = (req, res) => {
     return res.render("join", {titleName: "회원가입"});
@@ -76,14 +77,48 @@ export const getAttendance = async (req, res) => {
 }
 
 export const postAttendance = async (req, res) => {
+    // const {_id} = req.session.user;
+    // await User.findByIdAndUpdate(_id, {
+    //     attendance: true, 
+    //     attendanceTime: Date.now(),
+    // });
+    // const user = await User.findById(_id);
+    // req.session.user = user;
+    // return res.redirect("/user/attendance");
     const {_id} = req.session.user;
-    await User.findByIdAndUpdate(_id, {
-        attendance: true, 
-        attendanceTime: Date.now()
-    });
-    const user = await User.findById(_id);
-    req.session.user = user;
-    return res.redirect("/user/attendance");
+    const todayDate = new Date().toLocaleDateString();
+    const todayExists = await Calendar.exists({date: todayDate});
+
+    const attendance = {user: _id, time: new Date().toLocaleTimeString()};
+    if(!todayExists){
+        console.log("user create");
+        await Calendar.create({
+            date: todayDate,
+            attendance: attendance,
+        });
+    }else{
+        const todayCalendar = await Calendar.findOne({date: todayDate}).populate("user");
+        console.log(todayCalendar.attendance);
+        console.log(_id);
+        const index = (todayCalendar.attendance).some(i=>i.user===_id);
+        console.log(index);
+        if((todayCalendar.attendance).indexOf(_id)){
+            console.log("user exists");
+            return res.redirect("/user/attendance");    
+        }
+
+        console.log("user push");
+        todayCalendar.attendance.push(attendance);
+        todayCalendar.save();
+
+        // await Calendar.findByIdAndUpdate(todayCalendar.id, {
+        //     $push: {attendance: attendance},
+        // });
+
+        return res.redirect("/user/attendance");
+    }
+
+    
 }
 
 // 깃허브에 계정의 접근을 요청하기 위해 해당 URL로 이동한다.
