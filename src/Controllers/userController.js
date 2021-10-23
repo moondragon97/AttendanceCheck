@@ -3,10 +3,12 @@ import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 import Calendar from "../models/Calendar";
 
+// 회원가입 GET
 export const getJoin = (req, res) => {
     return res.render("join", {titleName: "회원가입"});
 };
 
+// 회원가입 POST
 export const postJoin = async (req, res) => {
     const {userId, password, passwordConfirmation, name, email, snum} = req.body;
     if(password !== passwordConfirmation){
@@ -31,12 +33,12 @@ export const postJoin = async (req, res) => {
 };
 
 
-// /login render
+// 로그인 GET
 export const getLogin = (req, res) => {
     return res.render("login", {titleName: "로그인"});
 };
 
-// 로그인 검사 및 처리
+// 로그인 POST
 export const postLogin = async (req, res) => {
     const {userId, password} = req.body;
     const user = await User.findOne({userId, socialOnly: false});
@@ -51,75 +53,68 @@ export const postLogin = async (req, res) => {
     req.session.loggedIn = true;
     req.session.user = user;
     return res.redirect("/");
-}
+};
 
 // 로그아웃 처리
 export const logout = (req, res) => {
     req.session.destroy();
     return res.redirect("/");
-}
+};
 
+// 출석체크 GET
 export const getAttendance = async (req, res) => {
     const {_id} = req.session.user;
-    console.log("get");
-    const user = await User.findById(_id);
+    const todayDate = new Date().toLocaleDateString();
+    const todayDataObject = await Calendar.findOne({date: todayDate}).populate("user");
     
-    // 매일 출석 초기화가 될 때 세션도 초기화
-    if(!user.attendance){
-        req.session.user = user;
-        res.locals.loggedInUser = req.session.user;
+    // 당일날의 데이터 객체 배열이 생성이 되어 있는지
+    if(!todayDataObject){
+        return res.render("attendance", {titleName: "출석체크", isAttendanceCheck: false});
+    }
+    
+    const user = todayDataObject.attendance.find(i=>i.user==_id);
+    
+    // 유저가 당일날 출석체크 했는지
+    if(!user){
+        return res.render("attendance", {titleName: "출석체크", isAttendanceCheck: false});
     }
 
-    if(!req.session.loggedIn){
-        return res.redirect("/login");
-    }
-    return res.render("attendance", {titleName: "출석체크"});
-}
+    const attendanceTime = user.time
+    return res.render("attendance", {titleName: "출석체크", isAttendanceCheck: true, attendanceTime});
+};
 
+// 출석체크 POST
 export const postAttendance = async (req, res) => {
-    // const {_id} = req.session.user;
-    // await User.findByIdAndUpdate(_id, {
-    //     attendance: true, 
-    //     attendanceTime: Date.now(),
-    // });
-    // const user = await User.findById(_id);
-    // req.session.user = user;
-    // return res.redirect("/user/attendance");
     const {_id} = req.session.user;
     const todayDate = new Date().toLocaleDateString();
-    const todayExists = await Calendar.exists({date: todayDate});
-
+    const todayDataObject = await Calendar.findOne({date: todayDate}).populate("user");
     const attendance = {user: _id, time: new Date().toLocaleTimeString()};
-    if(!todayExists){
-        console.log("user create");
+
+    // 당일 정보의 출석 데이터 객체 배열이 생성이 안 되어 있으면 생성
+    if(!todayDataObject){
         await Calendar.create({
             date: todayDate,
             attendance: attendance,
         });
     }else{
-        const todayCalendar = await Calendar.findOne({date: todayDate}).populate("user");
-        console.log(todayCalendar.attendance);
-        console.log(_id);
-        const index = (todayCalendar.attendance).some(i=>i.user===_id);
-        console.log(index);
-        if((todayCalendar.attendance).indexOf(_id)){
-            console.log("user exists");
+        const index = todayDataObject.attendance.find(i=>i.user==_id);
+        
+        // 출석 데이터 객체 배열에 해당 객체가 이미 존재하면 해당 링크로 다시 돌려 보낸다.
+        if(index){
             return res.redirect("/user/attendance");    
         }
 
-        console.log("user push");
-        todayCalendar.attendance.push(attendance);
-        todayCalendar.save();
-
-        // await Calendar.findByIdAndUpdate(todayCalendar.id, {
-        //     $push: {attendance: attendance},
-        // });
-
-        return res.redirect("/user/attendance");
+        // 출석 완료
+        todayDataObject.attendance.push(attendance);
+        todayDataObject.save();
     }
+    return res.redirect("/user/attendance");
+};
 
-    
-}
+export const getAttendanceCheck = async (req, res) => {
+    const attendanceDatas = await Calendar.find({}).populate("attendance.user");
+    return res.render("check-attendance", {titleName: "출석현황", attendanceDatas});
+};
 
 // 깃허브에 계정의 접근을 요청하기 위해 해당 URL로 이동한다.
 export const startGithubLogin = (req, res) => {
@@ -193,10 +188,12 @@ export const finishGithubLogin = async (req, res) => {
     }
 };
 
+// 프로필 GET
 export const getProfile = async (req, res) => {
     return res.render("profile", {titleName: "프로필"});
 };
 
+// 프로필 수정 GET
 export const getProfileEdit = (req, res) => {
     const {_id} = req.session.user;
     const paramId = req.params.id;
@@ -206,6 +203,7 @@ export const getProfileEdit = (req, res) => {
     return res.render("edit-profile", {titleName: "정보수정"});
 };
 
+// 프로필 수정 POST
 export const postProfileEdit = async (req, res) => {
     const {body:{name, email, snum}, file} = req;
     const {_id, avatarUrl} = req.session.user;
@@ -220,6 +218,7 @@ export const postProfileEdit = async (req, res) => {
     return res.redirect(`/user/${_id}`);
 };
 
+// 비밀번호 수정 GET
 export const getPasswordEdit = (req, res) => {
     const {_id} = req.session.user;
     const paramId = req.params.id;
@@ -229,6 +228,7 @@ export const getPasswordEdit = (req, res) => {
     return res.render("edit-password", {titleName: "비민번호 변경"});
 };
 
+// 비밀번호 수정 POST
 export const postPasswordEdit = async (req, res) => {
     const {_id} = req.session.user;
     const {oldPassword, newPassword, passwordConfirmation} = req.body;
@@ -250,6 +250,7 @@ export const postPasswordEdit = async (req, res) => {
     return res.redirect("/");
 };
 
+// 회원탈퇴
 export const leave = async (req, res) => {
     const {_id} = req.session.user;
     const paramId = req.params.id;
@@ -259,4 +260,4 @@ export const leave = async (req, res) => {
     await User.findByIdAndRemove(_id);
     req.session.destroy();
     return res.redirect("/");
-}
+};

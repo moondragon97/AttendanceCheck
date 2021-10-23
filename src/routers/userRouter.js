@@ -1,11 +1,12 @@
 import express from "express";
-import {finishGithubLogin, getAttendance, logout, postAttendance, startGithubLogin, getProfile, getProfileEdit, postProfileEdit, getPasswordEdit, postPasswordEdit, leave } from "../Controllers/userController";
+import {finishGithubLogin, getAttendance, logout, postAttendance, startGithubLogin, getProfile, getProfileEdit, postProfileEdit, getPasswordEdit, postPasswordEdit, leave, getAttendanceCheck } from "../Controllers/userController";
 import { protectNotUser, protectSocialUser, uploadFiles } from "../middlewares";
 
 const rootRouter = express.Router();
 
 rootRouter.get("/logout", protectNotUser, logout);
 rootRouter.route("/attendance").all(protectNotUser).get(getAttendance).post(postAttendance);
+rootRouter.get("/attendance/check", protectNotUser, getAttendanceCheck);
 rootRouter.get("/github/start", startGithubLogin);
 rootRouter.get("/github/finish", finishGithubLogin);
 rootRouter.get("/:id", protectNotUser, getProfile);

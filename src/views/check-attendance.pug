@@ -1,0 +1,9 @@
+extends base.pug
+include mixins/attendance-date
+
+block content
+    div
+        each attendanceData in attendanceDatas
+            +attendanceDate(attendanceData)
+        else
+            span 출석 현황이 비어 있습니다.

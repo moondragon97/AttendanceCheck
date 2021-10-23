@@ -1,0 +1,10 @@
+include attendance-info
+
+mixin attendanceDate(attendanceData)
+    span=attendanceData.date
+    div
+        each attendance in attendanceData.attendance
+            +attendanceInfo(attendance)
+    div
+    div
+        

@@ -4,8 +4,8 @@ block content
     form(method="POST")
         span 00:00:00  
         div
-            if !loggedInUser.attendance
+            if !isAttendanceCheck
                 input(type="submit", value="출석")
             else
                 input(type="submit", value="출석완료", disabled=true)
-                span=loggedInUser.attendanceTime
+                span=attendanceTime

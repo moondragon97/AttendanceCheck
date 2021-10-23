@@ -27,15 +27,15 @@ app.use(session({
     store: mongoStore.create({mongoUrl: process.env.DB_URL}),
 }));
 
-cron.schedule("0 0 6 * * *", () => {
-    User.updateMany({}, {attendance: false}, function (err, docs){
-        if(err)
-            console.log(err);
-        else{
-            console.log(docs);
-        }
-    });
-});
+// cron.schedule("0 0 6 * * *", () => {
+//     User.updateMany({}, {attendance: false}, function (err, docs){
+//         if(err)
+//             console.log(err);
+//         else{
+//             console.log(docs);
+//         }
+//     });
+// });
 
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
