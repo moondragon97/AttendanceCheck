@@ -111,9 +111,20 @@ export const postAttendance = async (req, res) => {
     return res.redirect("/user/attendance");
 };
 
+// 전체 출석현황
 export const getAttendanceCheck = async (req, res) => {
-    const attendanceDatas = await Calendar.find({}).populate("attendance.user");
+    const attendanceDatas = await Calendar.find({}).sort({'date': -1}).populate("attendance.user");
     return res.render("check-attendance", {titleName: "출석현황", attendanceDatas});
+};
+
+// 개인 출석현황
+export const getAttendanceEachCheck = async (req, res) => {
+    const _id = req.params.id;
+
+    const userAttendanceDatas = await Calendar.find({attendance : {$elemMatch : {user: _id}}}).populate("user");
+    console.log(userAttendanceDatas);
+
+    return res.render(`/user/attendance`, {titleName: `${userAttendanceDatas[0].attendance.user.name}`});
 };
 
 // 깃허브에 계정의 접근을 요청하기 위해 해당 URL로 이동한다.

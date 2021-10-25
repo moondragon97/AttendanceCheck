@@ -1,5 +1,4 @@
 mixin attendanceInfo(attendanceData)
-    span=attendanceData.user.name
-    span (#{attendanceData.user.snum})
+    a(href=`/user/attendance/${attendanceData.user._id}`) #{attendanceData.user.name}(#{attendanceData.user.snum})
     span=attendanceData.time
     div
