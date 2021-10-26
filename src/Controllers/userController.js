@@ -121,10 +121,17 @@ export const getAttendanceCheck = async (req, res) => {
 export const getAttendanceEachCheck = async (req, res) => {
     const _id = req.params.id;
 
-    const userAttendanceDatas = await Calendar.find({attendance : {$elemMatch : {user: _id}}}).populate("user");
-    console.log(userAttendanceDatas);
-
-    return res.render(`/user/attendance`, {titleName: `${userAttendanceDatas[0].attendance.user.name}`});
+    const userAttendanceDatas = await Calendar.find({attendance : {$elemMatch : {user: _id}}}).populate("attendance.user");
+    
+    
+    let userName;
+    for(let i = 0; i < userAttendanceDatas[0].attendance.length; i++){
+        if(userAttendanceDatas[0].attendance[i].user._id == _id){
+            userName = userAttendanceDatas[0].attendance[i].user.name;
+        }
+    }
+    
+    return res.render('attendance-each', {titleName: `${userName}학생의 출석정보`, userAttendanceDatas, _id});
 };
 
 // 깃허브에 계정의 접근을 요청하기 위해 해당 URL로 이동한다.

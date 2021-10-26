@@ -1,2 +1,11 @@
 extends base
+include mixins/attendance-each
+include mixins/attendance-each-date
 
+block content
+    div
+    each attendanceData in userAttendanceDatas
+        +attendanceDate(attendanceData)
+        each attendance in attendanceData.attendance
+            if(attendance.user._id == _id)
+                +attendance(attendance)
