@@ -7,5 +7,6 @@ block content
     each attendanceData in userAttendanceDatas
         +attendanceDate(attendanceData)
         each attendance in attendanceData.attendance
-            if(attendance.user._id == _id)
-                +attendance(attendance)
+            if attendance.user != null
+                if(attendance.user._id == _id)
+                    +attendance(attendance)

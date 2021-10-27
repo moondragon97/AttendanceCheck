@@ -1,3 +1,4 @@
 mixin attendance(userData)
-    span #{userData.user.name} #{userData.time}
-    div
+    if userData.user != null
+        span #{userData.user.name} #{userData.time}
+        div

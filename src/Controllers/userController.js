@@ -126,8 +126,10 @@ export const getAttendanceEachCheck = async (req, res) => {
     
     let userName;
     for(let i = 0; i < userAttendanceDatas[0].attendance.length; i++){
-        if(userAttendanceDatas[0].attendance[i].user._id == _id){
-            userName = userAttendanceDatas[0].attendance[i].user.name;
+        if(userAttendanceDatas[0].attendance[i].user != null){
+            if(userAttendanceDatas[0].attendance[i].user._id == _id){
+                userName = userAttendanceDatas[0].attendance[i].user.name;
+            }
         }
     }
     
@@ -208,7 +210,12 @@ export const finishGithubLogin = async (req, res) => {
 
 // 프로필 GET
 export const getProfile = async (req, res) => {
-    return res.render("profile", {titleName: "프로필"});
+    const {id} = req.params;
+    const user = await User.findById(id);
+    if(!user){
+        return res.redirect("/");
+    }
+    return res.render("profile", {titleName: `${user.name}학생의 프로필`, user});
 };
 
 // 프로필 수정 GET
