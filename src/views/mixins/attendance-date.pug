@@ -2,9 +2,8 @@ include attendance-info
 
 mixin attendanceDate(attendanceData)
     span=attendanceData.date
+    input(type="submit", name=attendanceData._id, value="Remove")
     div
         each attendance in attendanceData.attendance
             +attendanceInfo(attendance)
     div
-    div
-        

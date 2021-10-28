@@ -111,10 +111,15 @@ export const postAttendance = async (req, res) => {
     return res.redirect("/user/attendance");
 };
 
-// 전체 출석현황
+// 전체 출석현황 GET
 export const getAttendanceCheck = async (req, res) => {
     const attendanceDatas = await Calendar.find({}).sort({'date': -1}).populate("attendance.user");
     return res.render("check-attendance", {titleName: "출석현황", attendanceDatas});
+};
+
+// 전체 출석현황 POST
+export const deleteAttendanceCheck = async (req, res) => {
+    
 };
 
 // 개인 출석현황
