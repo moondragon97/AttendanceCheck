@@ -4,7 +4,7 @@ import { protectUser } from "../middlewares";
 
 const rootRouter = express.Router();
 
-const rootHandle = (req, res) => res.render("home", {titleName: "Home"});
+const rootHandle = (req, res) => res.render("home", {titleName: "3층 랩실"});
 
 rootRouter.get("/", rootHandle);
 rootRouter.route("/join").all(protectUser).get(getJoin).post(postJoin);

@@ -26,6 +26,9 @@ html(lang="ko")
                         a(href="/user/attendance/check") 출석현황
                     li
                         a(href="/board") 게시판
+                    if loggedInUser.admin
+                        li
+                            a(href="/user/check-data") 학생관리
         main
             block content
                     

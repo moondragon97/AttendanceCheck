@@ -118,8 +118,10 @@ export const getAttendanceCheck = async (req, res) => {
 };
 
 // 전체 출석현황 POST
-export const deleteAttendanceCheck = async (req, res) => {
-    
+export const deleteAttendance = async (req, res) => {
+    const {id} = req.params;
+    await Calendar.findByIdAndRemove(id);
+    return res.redirect("/user/attendance/check");
 };
 
 // 개인 출석현황
@@ -127,8 +129,7 @@ export const getAttendanceEachCheck = async (req, res) => {
     const _id = req.params.id;
 
     const userAttendanceDatas = await Calendar.find({attendance : {$elemMatch : {user: _id}}}).populate("attendance.user");
-    
-    
+
     let userName;
     for(let i = 0; i < userAttendanceDatas[0].attendance.length; i++){
         if(userAttendanceDatas[0].attendance[i].user != null){
@@ -137,7 +138,6 @@ export const getAttendanceEachCheck = async (req, res) => {
             }
         }
     }
-    
     return res.render('attendance-each', {titleName: `${userName}학생의 출석정보`, userAttendanceDatas, _id});
 };
 
@@ -243,7 +243,7 @@ export const postProfileEdit = async (req, res) => {
         name,
         snum, 
     }, {new: true});
-    console.log(updateUser);
+ 
     req.session.user = updateUser;
     return res.redirect(`/user/${_id}`);
 };
@@ -282,12 +282,56 @@ export const postPasswordEdit = async (req, res) => {
 
 // 회원탈퇴
 export const leave = async (req, res) => {
-    const {_id} = req.session.user;
+    const {user} = req.session;
+    const {_id} = user;
     const paramId = req.params.id;
-    if(_id != paramId){
+
+    
+    // 관리자가 본인일 때 삭제 X
+    if(user.admin && _id == paramId){
+        return res.redirect("/user/check-data");
+    }
+    
+    // 본인이거나, 관리자일 때
+    if(_id == paramId || user.admin){
+        await User.findByIdAndRemove(paramId);
+    }
+
+    // 관리자가 아닐 시 실행
+    if(!user.admin){
+        req.session.destroy();
         return res.redirect("/");
     }
-    await User.findByIdAndRemove(_id);
-    req.session.destroy();
+
+    return res.redirect("/user/check-data");
+};
+
+// 유저 정보들 체크
+export const checkData = async (req, res) => {
+    const users = await User.find({});
+
+    return res.render("check-userdata", {titleName: "가입된 학생들", users});
+};
+
+// 관리자 위임
+export const grantAdmin = async (req, res) => {
+    const paramId = req.params.id;
+    const {user} = req.session;
+    
+    if(!user.admin || paramId == user._id){
+        return res.redirect("/");
+    }
+
+    const adminUser = await User.findById(user._id);
+    const targetUser = await User.findById(paramId);
+    
+    adminUser.admin = false;
+    targetUser.admin = true;
+
+    await adminUser.save();
+    await targetUser.save();
+
+    req.session.user = adminUser;
+
     return res.redirect("/");
 };

@@ -1,0 +1,6 @@
+extends base
+include mixins/users-data
+
+block content
+    each user in users
+        +userData(user)

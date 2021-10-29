@@ -1,0 +1,5 @@
+mixin userData(userData)
+    a(href=`/user/${userData._id}`) #{userData.name}(#{userData.snum})
+    a(href=`/user/${userData._id}/grant-admin`) 관리자위임
+    a(href=`/user/${userData._id}/leave`) 회원삭제
+    div

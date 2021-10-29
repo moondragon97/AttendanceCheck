@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     snum: Number,
     socialOnly: {type: Boolean, default: false},
     avatarUrl: String,
+    admin: {type: Boolean, default: false},
 });
 
 userSchema.pre('save', async function() {
