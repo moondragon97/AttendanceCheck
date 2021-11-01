@@ -1,5 +1,10 @@
 mixin userData(userData)
     a(href=`/user/${userData._id}`) #{userData.name}(#{userData.snum})
-    a(href=`/user/${userData._id}/grant-admin`) 관리자위임
-    a(href=`/user/${userData._id}/leave`) 회원삭제
+    span=parseInt(userData.fee)+parseInt(userData.penalty)
+    if loggedInUser.manager || loggedInUser.admin
+        a(href=`/user/${userData._id}/leave`) 회비관리
+    if loggedInUser.admin
+        a(href=`/user/${userData._id}/grant-admin`) 랩장위임
+        a(href=`/user/${userData._id}/grant-admin`) 총무임명
+        a(href=`/user/${userData._id}/leave`) 회원삭제
     div

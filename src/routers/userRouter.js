@@ -4,7 +4,7 @@ import { protectNotAdmin, protectNotUser, protectSocialUser, uploadFiles } from 
 
 const rootRouter = express.Router();
 
-rootRouter.get("/check-data", protectNotUser, protectNotAdmin, checkData);
+rootRouter.get("/check-data", protectNotUser, checkData);
 rootRouter.get("/logout", protectNotUser, logout);
 rootRouter.route("/attendance").all(protectNotUser).get(getAttendance).post(postAttendance);
 rootRouter.get("/attendance/check", protectNotUser, getAttendanceCheck);

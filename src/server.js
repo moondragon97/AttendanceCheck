@@ -6,6 +6,18 @@ import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import {localsMiddleware } from "./middlewares";
 import boardRouter from "./routers/boardRouter";
+import cron from "node-cron";
+import User from "./models/User";
+
+// 랩비 스케줄링
+cron.schedule('0 0 0 1 * *', async () => {
+    feeInit();
+})
+
+// 랩비 초기화
+const feeInit = async () => {
+    await User.updateMany({}, {$inc : {fee : 5000}});
+};
 
 const app = express();
 
@@ -13,6 +25,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+
 
 // session 미들웨어를 만듦으로써 브라우저에게 session 텍스트를 부여한다.
 app.use(session({

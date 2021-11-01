@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
     socialOnly: {type: Boolean, default: false},
     avatarUrl: String,
     admin: {type: Boolean, default: false},
+    mnager: {type: Boolean, default: false},
+    penalty: {type: Number, default: 0},
+    fee: {type: Number, default: 0},
 });
 
 userSchema.pre('save', async function() {
