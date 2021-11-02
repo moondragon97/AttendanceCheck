@@ -1,0 +1,9 @@
+extends base
+include mixins/users-fee-data
+
+block content
+    span 벌금
+    span 회비
+    div
+    each user in users
+        +feeData(user)

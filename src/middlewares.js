@@ -21,6 +21,13 @@ export const protectUser = (req, res, next) => {
     next();
 };
 
+export const protectNotManager = (req, res, next) => {
+    if(!req.session.user.manager){
+        return res.redirect("/");
+    }
+    next();
+}
+
 export const protectNotAdmin = (req, res, next) => {
     if(!req.session.user.admin){
         return res.redirect("/");

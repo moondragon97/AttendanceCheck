@@ -117,7 +117,7 @@ export const getAttendanceCheck = async (req, res) => {
     return res.render("check-attendance", {titleName: "출석현황", attendanceDatas});
 };
 
-// 전체 출석현황 POST
+// 출석날짜 제거(데이터 정리를 위함)
 export const deleteAttendance = async (req, res) => {
     const {id} = req.params;
     await Calendar.findByIdAndRemove(id);
@@ -309,8 +309,27 @@ export const leave = async (req, res) => {
 // 유저 정보들 체크
 export const checkData = async (req, res) => {
     const users = await User.find({});
-
+    console.log(users);
     return res.render("check-userdata", {titleName: "가입된 학생들", users});
+};
+
+// 회비 관리 GET
+export const getManageFee = async (req, res) => {
+    const users = await User.find({});
+
+    return res.render("manage-fee", {titleName: "회비관리", users});
+};
+
+// 총무 임명
+export const grantManager = async (req, res) => {
+    const {id} = req.params;
+    const {_id} = req.session.user;
+    
+    await User.findByIdAndUpdate({_id: id}, {manager: true});
+    if(_id == id){
+        req.session.user.manager = true;
+    }
+    return res.redirect("/user/check-data");
 };
 
 // 관리자 위임

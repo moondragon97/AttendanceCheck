@@ -28,6 +28,9 @@ html(lang="ko")
                         a(href="/board") 게시판
                     li
                         a(href="/user/check-data") 랩실학생현황
+                    if loggedInUser.manager
+                        li
+                            a(href="/user/manage-fee") 회비관리
         main
             block content
                     
