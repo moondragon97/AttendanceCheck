@@ -10,7 +10,7 @@ export const getJoin = (req, res) => {
 
 // 회원가입 POST
 export const postJoin = async (req, res) => {
-    const {userId, password, passwordConfirmation, name, email, snum} = req.body;
+    const {userId, password, passwordConfirmation, name, email, snum, birthDay} = req.body;
     if(password !== passwordConfirmation){
         return res.status(400).render("join", {titleName: "회원가입", errorMessage: "비밀번호가 일치하지 않습니다."});
     }
@@ -25,6 +25,7 @@ export const postJoin = async (req, res) => {
             name,
             snum,
             email,
+            birthDay,
         });
         return res.redirect("/login");
     }catch(error){
@@ -235,13 +236,14 @@ export const getProfileEdit = (req, res) => {
 
 // 프로필 수정 POST
 export const postProfileEdit = async (req, res) => {
-    const {body:{name, email, snum}, file} = req;
+    const {body:{name, email, snum, birthDay}, file} = req;
     const {_id, avatarUrl} = req.session.user;
     const updateUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: file ? file.path : avatarUrl,
         email,
         name,
-        snum, 
+        snum,
+        birthDay,
     }, {new: true});
  
     req.session.user = updateUser;
@@ -308,14 +310,13 @@ export const leave = async (req, res) => {
 
 // 유저 정보들 체크
 export const checkData = async (req, res) => {
-    const users = await User.find({});
-    console.log(users);
+    const users = await User.find({npc: false}).sort({'joinAt': -1});
     return res.render("check-userdata", {titleName: "가입된 학생들", users});
 };
 
 // 회비 관리 GET
 export const getManageFee = async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({}).sort({'joinAt': -1});
 
     return res.render("manage-fee", {titleName: "회비관리", users});
 };

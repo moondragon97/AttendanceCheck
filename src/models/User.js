@@ -7,12 +7,16 @@ const userSchema = new mongoose.Schema({
     name: {type: String, require: true},
     email: {type: String, require: true},
     snum: Number,
+    birthDay: Date,
     socialOnly: {type: Boolean, default: false},
     avatarUrl: String,
+    joinAt: {type: Date, default: Date.now},
     admin: {type: Boolean, default: false},
     manager: {type: Boolean, default: false},
+    npc: {type: Boolean, default: false},
     penalty: {type: Number, default: 0},
     fee: {type: Number, default: 0},
+    totalFee: {type: Number, default: 0},
 });
 
 userSchema.pre('save', async function() {
