@@ -8,7 +8,7 @@ block content
     else
         span 대표 이미지 없음
     form(method="POST", enctype="multipart/form-data")
-        label(for="avatar") Avatar
+        label(for="avatar") 대표 이미지
         input(type="file", id="avatar", name="avatar", accept="image/*")
         input(value=loggedInUser.name, placeholder="이름", type="text", name="name", required)
         input(value=loggedInUser.email, placeholder="이메일", type="email", name="email", required)

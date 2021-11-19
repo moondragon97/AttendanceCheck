@@ -1,6 +1,6 @@
 import express from "express";
 import {finishGithubLogin, getAttendance, logout, postAttendance, startGithubLogin, getProfile, getProfileEdit, postProfileEdit, getPasswordEdit, postPasswordEdit, leave, getAttendanceCheck, getAttendanceEachCheck, deleteAttendance, checkData, grantAdmin, grantManager, getManageFee } from "../Controllers/userController";
-import { protectNotAdmin, protectNotManager, protectNotUser, protectSocialUser, uploadFiles } from "../middlewares";
+import { protectNotAdmin, protectNotManager, protectNotUser, protectSocialUser, uploadImage } from "../middlewares";
 
 const rootRouter = express.Router();
 
@@ -14,7 +14,7 @@ rootRouter.get("/attendance/:id", protectNotUser, getAttendanceEachCheck);
 rootRouter.get("/github/start", startGithubLogin);
 rootRouter.get("/github/finish", finishGithubLogin);
 rootRouter.get("/:id", protectNotUser, getProfile);
-rootRouter.route("/:id/edit-profile").all(protectNotUser).get(getProfileEdit).post(uploadFiles.single('avatar'), postProfileEdit); 
+rootRouter.route("/:id/edit-profile").all(protectNotUser).get(getProfileEdit).post(uploadImage.single('avatar'), postProfileEdit); 
 rootRouter.route("/:id/edit-password").all(protectNotUser, protectSocialUser).get(getPasswordEdit).post(postPasswordEdit);
 rootRouter.get("/:id/leave", protectNotUser, leave);
 

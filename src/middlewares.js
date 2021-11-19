@@ -42,4 +42,4 @@ export const protectSocialUser = (req, res, next) => {
     next();
 };
 
-export const uploadFiles = multer({dest:"uploads/"});
+export const uploadImage = multer({dest:"uploads/images"});
