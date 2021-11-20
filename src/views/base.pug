@@ -2,11 +2,11 @@ doctype html
 html(lang="ko")
     head
         title #{titleName}
-        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+        link(rel="stylesheet" href="/assets/css/styles.css")
     body
         header
             h1 #{titleName}
-            nav
+            nav.btn__header
                 ul
                     li
                         a(href="/") 홈 
@@ -33,4 +33,4 @@ html(lang="ko")
                             a(href="/user/manage-fee") 회비관리
         main
             block content
-                    
+script(src="/assets/js/main.js")

@@ -1,4 +1,30 @@
-extends base.pug
-
-
-block content
+doctype html
+html(lang="ko")
+    head
+        h1 #{titleName}
+        link(rel="stylesheet" href="/assets/css/styles.css")
+    body
+        nav.home
+            ul
+                if !loggedIn
+                    li
+                        a(href="/join") 회원가입
+                    li
+                        a(href="/login") 로그인
+                else
+                    li
+                        a(href=`/user/${loggedInUser._id}`) #{loggedInUser.name}님의 프로필
+                    li
+                        a(href="/user/logout") 로그아웃
+                li
+                    a(href="/user/attendance") 출석하기
+                li
+                    a(href="/user/attendance/check") 출석현황
+                li
+                    a(href="/board") 게시판
+                li
+                    a(href="/user/check-data") 랩실학생현황
+                if loggedInUser.manager
+                    li
+                        a(href="/user/manage-fee") 회비관리
+script(src="/assets/js/main.js")

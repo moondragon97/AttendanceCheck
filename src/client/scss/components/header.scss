@@ -1,0 +1,22 @@
+h1{
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 50px;
+}
+header{
+    .btn__header{
+        ul{
+            display: flex;
+            float: right;
+            margin-top: 40px;
+            li{
+                margin-left: 10px;
+                font-size: 14px;
+                font-weight: 600;
+                color:white;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

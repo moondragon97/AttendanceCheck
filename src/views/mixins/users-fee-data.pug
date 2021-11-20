@@ -2,9 +2,10 @@ mixin feeData(user)
     div
         a(href=`/user/${user._id}`) #{user.name}(#{user.snum})
         span=user.fee
-        input(type="submit", value="랩비 입금")
-        input(type="submit", value="랩비 되돌리기")
+        input(type="submit", value="랩비 추가")
+        input(type="submit", value="랩비 감소")
         span=user.penalty
         input(placeholder="벌금 추가", name="increase", type="number")
         input(placeholder="벌금 감소", name="decrease", type="number")
         input(placeholder="낸 벌금", name="charge", type="number")
+        input(type="submit", value="적용")

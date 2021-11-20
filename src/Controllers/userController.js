@@ -97,6 +97,7 @@ export const postAttendance = async (req, res) => {
             date: todayDate,
             attendance: attendance,
         });
+        return res.redirect("/user/attendance");
     }else{
         const index = todayDataObject.attendance.find(i=>i.user==_id);
         

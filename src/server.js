@@ -10,7 +10,7 @@ import cron from "node-cron";
 import User from "./models/User";
 
 // 랩비 스케줄링
-cron.schedule('0 0 0 1 * *', async () => {
+cron.schedule('0 0 0 1 * *', () => {
     feeInit();
 })
 
@@ -40,6 +40,7 @@ app.use(session({
 
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
+app.use("/assets", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/board", boardRouter);
