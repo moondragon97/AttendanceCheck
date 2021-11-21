@@ -1,0 +1,41 @@
+.show__profile{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    ul{
+        margin : 0 auto;
+        margin-top: 20px;
+    }
+
+    li{
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    .link__profile{
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        a{
+            width: 140px;
+            padding: 5px;
+            margin-bottom: 5px;
+            margin-left: 600px;
+            background-color: white;
+            color: black;
+            text-align: center;
+        }
+    }
+    img{
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+}
+.btn__leave{
+    background-color: red !important;
+}
+
+.img__avatar{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}

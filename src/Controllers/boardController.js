@@ -41,7 +41,7 @@ export const postEnroll = async (req, res) => {
 export const read = async (req, res) => {
     const {id} = req.params;
     const posting = await Posting.findById(id);
-    return res.render("posting-read", {titleName: "게시물", posting})
+    return res.render("posting-read", {titleName: posting.title, posting})
 };
 
 export const getEdit = async (req, res) => {

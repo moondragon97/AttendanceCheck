@@ -1,0 +1,35 @@
+.data__users{
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 150px;
+    ul{
+        display: flex;
+        margin-bottom: 15px;
+    }
+    
+    li:nth-child(1){
+        width: 30%;
+    }
+    
+    li:nth-child(2){
+        width: 60%;
+    }
+    li:nth-child(3){
+        text-align: center;
+        background-color: green;
+        width: 8%;
+    }
+    li:nth-child(4),
+    li:nth-child(5){
+        text-align: center;
+        width: 6%;
+        background-color: red;
+    }
+
+    li{
+        padding: 5px;
+        margin: 1px;
+    }
+       
+}

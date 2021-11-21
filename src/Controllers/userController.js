@@ -130,14 +130,14 @@ export const deleteAttendance = async (req, res) => {
 export const getAttendanceEachCheck = async (req, res) => {
     const _id = req.params.id;
 
-    const userAttendanceDatas = await Calendar.find({attendance : {$elemMatch : {user: _id}}}).populate("attendance.user");
+    const userAttendanceDatas = await Calendar.find({attendance : {$elemMatch : {user: _id}}}).sort({'date': -1}).populate("attendance.user");
 
     let userName;
     for(let i = 0; i < userAttendanceDatas[0].attendance.length; i++){
         if(userAttendanceDatas[0].attendance[i].user != null){
             if(userAttendanceDatas[0].attendance[i].user._id == _id){
                 userName = userAttendanceDatas[0].attendance[i].user.name;
-            }
+            } 
         }
     }
     return res.render('attendance-each', {titleName: `${userName}학생의 출석정보`, userAttendanceDatas, _id});

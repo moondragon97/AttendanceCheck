@@ -5,18 +5,18 @@ h1{
     margin-top: 50px;
 }
 header{
-    .btn__header{
-        ul{
-            display: flex;
-            float: right;
-            margin-top: 40px;
-            li{
-                margin-left: 10px;
-                font-size: 14px;
-                font-weight: 600;
-                color:white;
-                text-transform: uppercase;
-            }
+    ul{
+        display: flex;
+        li{
+            margin-left: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color:white;
+            text-transform: uppercase;
         }
+    }
+    .btn__header{
+        float: right;
+        margin-top: 40px;
     }
 }

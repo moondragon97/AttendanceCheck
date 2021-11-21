@@ -1,11 +1,39 @@
-extends base.pug
-
-block content
-    h1=posting.title
-    p=posting.content
-    br
-    br
-    if(posting.owner._id == loggedInUser._id)
-        a(href=`/board/${posting._id}/edit`) 게시물 수정 &rarr;
-        br
-        a(href=`/board/${posting._id}/remove`) 게시물 삭제
+doctype html
+html(lang="ko")
+    head
+        title 게시물 - #{titleName}
+        link(rel="stylesheet" href="/assets/css/styles.css")
+    body
+        header
+                nav
+                    ul
+                        li
+                            a(href="/") 홈 
+                        if !loggedIn
+                            li
+                                a(href="/join") 회원가입
+                            li
+                                a(href="/login") 로그인
+                        else
+                            li
+                                a(href=`/user/${loggedInUser._id}`) #{loggedInUser.name}님의 프로필
+                            li
+                                a(href="/user/logout") 로그아웃
+                        li
+                            a(href="/user/attendance") 출석하기
+                        li
+                            a(href="/user/attendance/check") 출석현황
+                        li
+                            a(href="/board") 게시판
+                        li
+                            a(href="/user/check-data") 랩실학생현황
+                        if loggedInUser.manager
+                            li
+                                a(href="/user/manage-fee") 회비관리
+        div.read__posting
+            h1 #{titleName}
+            p=posting.content
+            if(posting.owner._id == loggedInUser._id)
+                a(href=`/board/${posting._id}/edit`) 게시물 수정 &rarr;
+                a(href=`/board/${posting._id}/remove`) 게시물 삭제
+script(src="/assets/js/main.js")

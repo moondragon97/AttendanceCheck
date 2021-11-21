@@ -1,6 +1,9 @@
 mixin attendanceInfo(attendanceData)
-    if attendanceData.user != null
-        a(href=`/user/${attendanceData.user._id}`) #{attendanceData.user.name}(#{attendanceData.user.snum})
-        span=attendanceData.time
-        a(href=`/user/attendance/${attendanceData.user._id}`) 출석이력
-        div
+    ul
+        if attendanceData.user != null
+            li
+                a(href=`/user/${attendanceData.user._id}`) #{attendanceData.user.name}(#{attendanceData.user.snum})
+            li  
+                p=attendanceData.time
+            li
+                a(href=`/user/attendance/${attendanceData.user._id}`) 출석이력

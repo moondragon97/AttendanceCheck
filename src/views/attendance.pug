@@ -2,10 +2,10 @@ extends base.pug
 
 block content
     form(method="POST")
-        span 00:00:00  
         div
             if !isAttendanceCheck
+                span 00:00:00
                 input(type="submit", value="출석")
             else
+                span 00:00:00
                 input(type="submit", value="출석완료", disabled=true)
-                span=attendanceTime

@@ -1,8 +1,13 @@
 mixin userData(userData)
-    div
-        a(href=`/user/${userData._id}`) #{userData.name}(#{userData.snum})
-        span=parseInt(userData.fee)+parseInt(userData.penalty)
+    ul
+        li
+            a(href=`/user/${userData._id}`) #{userData.name}(#{userData.snum})
+        li
+            p 벌금 : #{parseInt(userData.fee)+parseInt(userData.penalty)}
         if loggedInUser.admin
-            a(href=`/user/${userData._id}/grant-admin`) 랩장위임
-            a(href=`/user/${userData._id}/grant-manager`) 총무임명
-            a(href=`/user/${userData._id}/leave`) 회원삭제
+            li
+                a(href=`/user/${userData._id}/grant-manager`) 총무임명
+            li
+                a(href=`/user/${userData._id}/grant-admin`) 랩장위임
+            li
+                a(href=`/user/${userData._id}/leave`) 회원삭제

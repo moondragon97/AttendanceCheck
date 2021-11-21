@@ -14,8 +14,6 @@ html(lang="ko")
                 else
                     li
                         a(href=`/user/${loggedInUser._id}`) #{loggedInUser.name}님의 프로필
-                    li
-                        a(href="/user/logout") 로그아웃
                 li
                     a(href="/user/attendance") 출석하기
                 li
@@ -27,4 +25,7 @@ html(lang="ko")
                 if loggedInUser.manager
                     li
                         a(href="/user/manage-fee") 회비관리
+                if loggedIn
+                    li
+                        a(href="/user/logout") 로그아웃
 script(src="/assets/js/main.js")

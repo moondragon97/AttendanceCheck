@@ -1,10 +1,13 @@
 include attendance-info
 
 mixin attendanceDate(attendanceData)
-    span=attendanceData.date
-    if loggedInUser.admin
-        a(href=`/user/attendance/check/${attendanceData._id}/delete`) Remove
-    div
-        each attendance in attendanceData.attendance
-            +attendanceInfo(attendance)
-    div
+    div.attendance__date
+        ul
+            li
+                span.attendance__date__info=attendanceData.date
+                if loggedInUser.admin
+                    a(href=`/user/attendance/check/${attendanceData._id}/delete`).btn__date__remove Remove
+            li
+                div.attendance__date__users
+                    each attendance in attendanceData.attendance
+                        +attendanceInfo(attendance)

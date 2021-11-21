@@ -2,16 +2,20 @@ extends base.pug
 include mixins/posting
 
 block content
-    div
-        each posting in postings
-            +posting(posting)
-        else
-            span 게시물이 없습니다.
-    br
-    br
-    form(method="POST")
-        input(type="text", placeholder="검색", name="keyword")
-        input(type="submit", value="검색") 
-    br
+    if postings[0] != NULL
+        nav.text__header__posting
+            ul
+                li 제목
+                li 작성자
+                li 작성일자
+                li 조회 수
+        div.text__postings
+            each posting in postings
+                +posting(posting)
+    else
+        span 게시물이 없습니다.
     if loggedIn
-        a(href="/board/enroll") 게시물 작성하기
+        a(href="/board/enroll").btn__enroll__posting 게시물 작성하기
+    form(method="POST")
+        input(type="text", placeholder="제목", name="keyword")
+        input(type="submit", value="검색") 

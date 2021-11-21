@@ -2,5 +2,6 @@ extends base
 include mixins/users-data
 
 block content
-    each user in users
-        +userData(user)
+    div.data__users
+        each user in users
+            +userData(user)

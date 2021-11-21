@@ -1,22 +1,23 @@
 extends base.pug
 
 block content
-    ul
+    div.show__profile
         if user.avatarUrl
-            img(src="/" + user.avatarUrl, width="100", height="100")
+            img(src="/" + user.avatarUrl).img__avatar
         else
-            li 대표 이미지 없음
-        li 이름 : #{user.name}
-        li 학번 : #{user.snum}
-        li 이메일 : #{user.email}
-        li 생일 : #{user.birthDay}
-        if user.attendance
-            li 출석현황 : 완료
-        else
-            li 출석현황 : 미완료
-    a(href=`/user/${user._id}/edit-profile`) 정보 수정하기 &rarr;
-    br
-    if !user.socialOnly
-        a(href=`/user/${user._id}/edit-password`) 패스워드 수정하기 &rarr;
-        br
-    a(href=`/user/${user._id}/leave`) 회원탈퇴
+            span.img__avatar 대표 이미지 없음
+        ul
+            li 이름 : #{user.name}
+            li 학번 : #{user.snum}
+            li 이메일 : #{user.email}
+            li 생일 : #{user.birthDay}
+            if user.attendance
+                li 출석현황 : 완료
+            else
+                li 출석현황 : 미완료
+        if loggedInUser._id == user._id
+            div.link__profile
+                a(href=`/user/${user._id}/edit-profile`) 정보 수정하기 &rarr;
+                if !user.socialOnly
+                    a(href=`/user/${user._id}/edit-password`) 패스워드 수정하기 &rarr;
+                a(href=`/user/${user._id}/leave`).btn__leave 회원탈퇴

@@ -1,18 +1,22 @@
-@import "./config/_variables";
 @import "./config/_reset";
+@import "./config/_variables";
 
+@import "./components/posting.scss";
 @import "./components/forms.scss";
 @import "./components/header.scss";
 
 @import"./screens/home.scss";
+@import"./screens/board.scss";
+@import"./screens/profile.scss";
+@import"./screens/users_data.scss";
+@import"./screens/manage_fee.scss";
+@import"./screens/attendance_check.scss";
 
 li{
     list-style-type: none;
-    padding: 0;
-    margin: 0;
 }
 a{
-    color:powderblue;
+    color: white;
     text-decoration: none;
 }
 body{
@@ -27,5 +31,5 @@ body{
     'Helvetica Neue',
     sans-serif;
     background-color: black;
-    color: powderblue;
+    color: white;
 }

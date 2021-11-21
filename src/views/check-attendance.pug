@@ -2,7 +2,7 @@ extends base.pug
 include mixins/attendance-date
 
 block content
-    div
+    div.check__attendance__all
         each attendanceData in attendanceDatas
             +attendanceDate(attendanceData)
         else

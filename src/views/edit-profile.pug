@@ -3,10 +3,6 @@ extends base.pug
 block content
     if errorMessage 
         div=errorMessage
-    if loggedInUser.avatarUrl
-        img(src="/" + loggedInUser.avatarUrl, width="100", height="100")
-    else
-        span 대표 이미지 없음
     form(method="POST", enctype="multipart/form-data")
         label(for="avatar") 대표 이미지
         input(type="file", id="avatar", name="avatar", accept="image/*")
@@ -14,4 +10,4 @@ block content
         input(value=loggedInUser.email, placeholder="이메일", type="email", name="email", required)
         input(value=loggedInUser.snum, placeholder="학번", type="number", name="snum", required)
         input(type="date", name="birthDay", required)
-        input(type="submit", value="Update Profile")
+        input(type="submit", value="변경")

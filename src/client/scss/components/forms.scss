@@ -1,0 +1,54 @@
+form:not(.enroll__posting){
+    max-width: 420px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 30px;
+    background-color: gray;
+    border-radius: 10px;
+    input{
+        all: unset;
+        padding: 15px 20px;  
+        border-radius: 5px;
+        background-color: black;
+        margin-bottom: 10px;
+        width: 90%;
+        &::placeholder{
+            color: gray;
+        }
+        &::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: invert(1);
+        }
+    }
+    
+    input[type="submit"]{
+        width: 20%;
+        text-align: center;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+        margin-top: 15px;
+        &:disabled{
+            cursor: not-allowed;
+            background-color: white;
+            color: black;
+        }
+    }
+
+    span{
+        display: block;
+        text-align: center;
+        font-size: 2rem;
+        margin: 10px;
+        margin-bottom: 35px;
+    }
+
+    input[type="number"]{
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+}
+
+
