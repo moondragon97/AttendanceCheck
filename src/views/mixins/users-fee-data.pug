@@ -1,20 +1,22 @@
 mixin feeData(user)
-    ul
-        li
-            a(href=`/user/${user._id}`) #{user.name}
-        li
-            p 랩비 : #{user.fee}
-        li
-            input(type="submit", value="랩비 추가")
-        li
-            input(type="submit", value="랩비 감소")
-        li
-            p 벌금 : #{user.penalty}
-        li
-            input(placeholder="벌금 추가", name="increase", type="number")
-        li
-            input(placeholder="벌금 감소", name="decrease", type="number")
-        li
-            input(placeholder="낸 벌금", name="charge", type="number")
-        li
-            input(type="submit", value="적용")
+    div.feeContainer(data-id=user._id)
+        ul
+            li
+                a(href=`/user/${user._id}`) #{user.name}
+            li
+                p.currentFee 랩비 : #{user.fee}
+            li
+                input(type="submit", value="랩비 추가").feePlus
+            li
+                input(type="submit", value="랩비 감소").feeMinus
+            li
+                p.currentPenalty 벌금 : #{user.penalty}
+            li
+                input(placeholder="벌금 추가", name="increase", type="number").penaltyPlus
+            li
+                input(placeholder="벌금 감소", name="decrease", type="number").penaltyMinus
+            li
+                input(placeholder="낸 벌금", name="charge", type="number").penaltySubmit
+            li
+                input(type="submit", value="적용").feeSubmit
+    script(src="/assets/js/feeManage.js")
