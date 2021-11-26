@@ -3,5 +3,18 @@ include mixins/users-fee-data
 
 block content
     div.data__fee
+        ul
+            li 이름
+            li 현재 랩비
+            li 랩비 추가
+            li 랩비 감소
+            li 벌금
+            li 벌금 추가
+            li 벌금 감소
+            li 제출한 벌금
+            li 적용
+    div.data__fee
         each user in users
             +feeData(user)
+block scripts
+            script(src="/assets/js/feeManage.js")

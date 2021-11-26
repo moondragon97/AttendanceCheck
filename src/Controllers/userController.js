@@ -288,7 +288,6 @@ export const leave = async (req, res) => {
     const {user} = req.session;
     const {_id} = user;
     const paramId = req.params.id;
-
     
     // 관리자가 본인일 때 삭제 X
     if(user.admin && _id == paramId){

@@ -4,19 +4,20 @@ mixin feeData(user)
             li
                 a(href=`/user/${user._id}`) #{user.name}
             li
-                p.currentFee 랩비 : #{user.fee}
+                span 랩비 : 
+                span.currentFee=user.fee
             li
-                input(type="submit", value="랩비 추가").feePlus
+                input(type="submit", value="랩비 추가").plusFee
             li
-                input(type="submit", value="랩비 감소").feeMinus
+                input(type="submit", value="랩비 감소").minusFee
             li
-                p.currentPenalty 벌금 : #{user.penalty}
+                span 벌금 : 
+                span.currentPenalty=user.penalty
             li
-                input(placeholder="벌금 추가", name="increase", type="number").penaltyPlus
+                input(placeholder="벌금 추가", name="increase", type="number").plusPenalty
             li
-                input(placeholder="벌금 감소", name="decrease", type="number").penaltyMinus
+                input(placeholder="벌금 감소", name="decrease", type="number").minusPenalty
             li
-                input(placeholder="낸 벌금", name="charge", type="number").penaltySubmit
+                input(placeholder="낸 벌금", name="charge", type="number").submitPenalty
             li
-                input(type="submit", value="적용").feeSubmit
-    script(src="/assets/js/feeManage.js")
+                input(type="submit", value="적용").submitFee
