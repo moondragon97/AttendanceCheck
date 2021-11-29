@@ -1,1 +1,26 @@
 import "../scss/styles.scss";
+import "regenerator-runtime"
+
+const dates = document.querySelectorAll(".date");
+
+// Date Format
+function dateFormat(date) {
+    console.log(date);
+    date = new Date(date);
+    // date.toISOString().split('T')[0];
+    // console.log(date)
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let hour = date.getHours();
+
+    month = month >= 10 ? month : '0' + month;
+    day = day >= 10 ? day : '0' + day;
+    hour = hour >= 10 ? hour : '0' + hour;
+
+    return date.getFullYear() + '-' + month + '-' + day;
+}
+
+for (let i = 0; i < dates.length; i++) {
+    console.log("g");
+    console.log(dateFormat(dates[i].innerHTML));
+}

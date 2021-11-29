@@ -2,6 +2,7 @@ import User from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 import Calendar from "../models/Calendar";
+//import { dateFormat } from "../middlewares";
 
 // 회원가입 GET
 export const getJoin = (req, res) => {
@@ -116,6 +117,9 @@ export const postAttendance = async (req, res) => {
 // 전체 출석현황 GET
 export const getAttendanceCheck = async (req, res) => {
     const attendanceDatas = await Calendar.find({}).sort({'date': -1}).populate("attendance.user");
+    // for (let i = 0; i < attendanceDatas.length; i++) {
+    //     const dates = await dateFormat(attendanceDatas[i].date);
+    // }
     return res.render("check-attendance", {titleName: "출석현황", attendanceDatas});
 };
 
@@ -320,6 +324,13 @@ export const getManageFee = async (req, res) => {
 
     return res.render("manage-fee", {titleName: "회비관리", users});
 };
+
+export const manageFee = async (req, res) => {
+    const {id} = req.params; 
+    const {fee, penalty, submit} = req.body;
+    
+    await User.findByIdAndUpdate(id, {fee, penalty, totalFee: submit});
+}
 
 // 총무 임명
 export const grantManager = async (req, res) => {

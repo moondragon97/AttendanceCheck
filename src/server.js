@@ -4,6 +4,7 @@ import morgan from "morgan";
 import mongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
+import apiRouter from "./routers/apiRouter";
 import {localsMiddleware } from "./middlewares";
 import boardRouter from "./routers/boardRouter";
 import cron from "node-cron";
@@ -25,7 +26,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json());
 
 // session 미들웨어를 만듦으로써 브라우저에게 session 텍스트를 부여한다.
 app.use(session({
@@ -44,5 +45,6 @@ app.use("/assets", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/board", boardRouter);
+app.use("/api", apiRouter);
 
 export default app;

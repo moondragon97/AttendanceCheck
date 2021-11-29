@@ -4,7 +4,7 @@ mixin attendanceDate(attendanceData)
     div.attendance__date
         ul
             li
-                span.attendance__date__info=attendanceData.date
+                span.attendance__date__info.date=attendanceData.date
                 if loggedInUser.admin
                     a(href=`/user/attendance/check/${attendanceData._id}/delete`).btn__date__remove Remove
             li
