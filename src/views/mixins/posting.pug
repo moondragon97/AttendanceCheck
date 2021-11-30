@@ -6,10 +6,10 @@ mixin posting(posting)
         li
             div
                 if(posting.owner !== null)
-                    span #{posting.owner.name}
+                    p #{posting.owner.name}
                 else
-                    span 삭제된 계정
+                    p 삭제된 계정
         li
-            span=posting.createdAt
+            p.date=posting.createdAt
         li
             span=posting.meta.views

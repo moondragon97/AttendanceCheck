@@ -21,6 +21,6 @@ function dateFormat(date) {
 }
 
 for (let i = 0; i < dates.length; i++) {
-    console.log("g");
+    dates[i].innerHTML = dateFormat(dates[i].innerHTML)
     console.log(dateFormat(dates[i].innerHTML));
 }

@@ -10,7 +10,9 @@ block content
             li 이름 : #{user.name}
             li 학번 : #{user.snum}
             li 이메일 : #{user.email}
-            li 생일 : #{user.birthDay}
+            li 
+                span 생일 : 
+                span.date #{user.birthDay}
             if user.attendance
                 li 출석현황 : 완료
             else
