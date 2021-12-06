@@ -16,9 +16,9 @@ rootRouter.get("/github/finish", finishGithubLogin);
 rootRouter.get("/:id", protectNotUser, getProfile);
 rootRouter.route("/:id/edit-profile").all(protectNotUser).get(getProfileEdit).post(uploadImage.single('avatar'), postProfileEdit); 
 rootRouter.route("/:id/edit-password").all(protectNotUser, protectSocialUser).get(getPasswordEdit).post(postPasswordEdit);
-rootRouter.get("/:id/leave", protectNotUser, leave);
 
-rootRouter.get("/:id/grant-manager", protectNotUser, protectNotAdmin, grantManager);
-rootRouter.get("/:id/grant-admin", protectNotUser, protectNotAdmin, grantAdmin);
+rootRouter.post("/:id/leave", protectNotUser, leave);
+rootRouter.post("/:id/grant-manager", protectNotUser, protectNotAdmin, grantManager);
+rootRouter.post("/:id/grant-admin", protectNotUser, protectNotAdmin, grantAdmin);
 
 export default rootRouter;

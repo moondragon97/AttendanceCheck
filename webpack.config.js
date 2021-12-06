@@ -5,7 +5,10 @@ const jsBase = "./src/client/js/";
 
 module.exports = {
     entry: {main: jsBase + "main.js",
-            feeManage: jsBase + "feeManage"},
+            feeManage: jsBase + "feeManage",
+            transformDate: jsBase + "transformDate",
+            clock: jsBase + "clock",
+            userDelete: jsBase + "userDelete",},
     mode: "development",
     output:{
         filename: "js/[name].js",

@@ -1,21 +1,20 @@
 mixin feeData(user)
-    div.feeContainer(data-id=user._id)
-        ul
-            li
-                a(href=`/user/${user._id}`) #{user.name}
-            li
-                span.currentFee=user.fee
-            li
-                input(type="submit", value="5000추가").plusFee
-            li
-                input(type="submit", value="5000감소").minusFee
-            li
-                span.currentPenalty=user.penalty
-            li
-                input(placeholder="0", name="increase", type="number").plusPenalty
-            li
-                input(placeholder="0", name="decrease", type="number").minusPenalty
-            li
-                input(placeholder="0", name="charge", type="number").submitPenalty
-            li
-                input(type="submit", value="적용").submitFee
+    tr.feeContainer(data-id=user._id)
+        td.data__user__fee
+            a(href=`/user/${user._id}`) #{user.name}
+        td
+            span.currentFee=user.fee
+        td
+            input(type="submit", value="5000추가").plusFee
+        td
+            input(type="submit", value="5000감소").minusFee
+        td
+            span.currentPenalty=user.penalty
+        td
+            input(placeholder="0", name="increase", type="number").plusPenalty
+        td
+            input(placeholder="0", name="decrease", type="number").minusPenalty
+        td
+            input(placeholder="0", name="charge", type="number").submitPenalty
+        td
+            input(type="submit", value="저장").submitFee

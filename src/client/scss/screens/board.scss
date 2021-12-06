@@ -3,8 +3,8 @@
     flex-direction: column;
     margin: 0 auto;
     margin-bottom: 20px;
-    margin-top : 110px;
-    width: 80%;
+    margin-top: 150px;
+    width: 90%;
     ul{
         display: flex;
         border-top: 1px solid white;
@@ -37,7 +37,7 @@
     border-top: 1px solid white;
     border-left: 1px solid white;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
     ul{
         display: flex;
         li:nth-child(1){
@@ -73,14 +73,20 @@
 
 .btn__enroll__posting{
     display: block;
-    width: 120px;
-    float: left;
-    margin-left: 140px;
-    margin-top: 10px;
-    padding: 5px;
-    border:1px solid white;
-    background-color: white;
-    color: black;
-    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: relative;
+    a{
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        padding: 3px;
+        width: 120px;
+        border:1px solid white;
+        background-color: white;
+        text-align: center;
+        color: black;
+    }
 
 }

@@ -2,19 +2,21 @@ extends base
 include mixins/users-fee-data
 
 block content
-    div.header__fee
-        ul
-            li 이름
-            li 현재 랩비
-            li 랩비 추가
-            li 랩비 감소
-            li 벌금
-            li 벌금 추가
-            li 벌금 감소
-            li 제출한 벌금
-            li 적용
-    div.data__fee
-        each user in users
-            +feeData(user)
+    div
+        table.data__fee
+            tr.header__fee
+                th 이름
+                th 현재 랩비
+                th 랩비 추가
+                th 랩비 감소
+                th 벌금
+                th 벌금 추가
+                th 벌금 감소
+                th 제출한 벌금
+                th
+            each user in users
+                +feeData(user)
+        div.submit__all
+            button.btnSubmitAll 전체 저장
 block scripts
-            script(src="/assets/js/feeManage.js")
+    script(src="/assets/js/feeManage.js")

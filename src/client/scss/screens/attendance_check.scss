@@ -3,6 +3,9 @@
     width: 80%;
     margin: 0 auto;
     margin-top: 150px;
+    li{
+        margin-bottom: 3px;
+    }
 }
 
 
@@ -42,4 +45,10 @@
     border-bottom: 1px solid white;
     padding-bottom: 20px;
     margin-bottom: 20px;
+}
+
+.btn__date__remove{
+    float: right;
+    background-color: red;
+    padding: 2px;
 }

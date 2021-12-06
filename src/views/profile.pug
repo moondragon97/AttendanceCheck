@@ -1,25 +1,35 @@
 extends base.pug
 
 block content
-    div.show__profile
-        if user.avatarUrl
-            img(src="/" + user.avatarUrl).img__avatar
-        else
-            span.img__avatar 대표 이미지 없음
-        ul
-            li 이름 : #{user.name}
-            li 학번 : #{user.snum}
-            li 이메일 : #{user.email}
-            li 
-                span 생일 : 
-                span.date #{user.birthDay}
-            if user.attendance
-                li 출석현황 : 완료
+    container.profileContainer(data-id=loggedInUser._id)
+        div.show__profile
+            if user.avatarUrl
+                img(src="/" + user.avatarUrl).img__avatar
             else
-                li 출석현황 : 미완료
-        if loggedInUser._id == user._id
-            div.link__profile
-                a(href=`/user/${user._id}/edit-profile`) 정보 수정하기 &rarr;
-                if !user.socialOnly
-                    a(href=`/user/${user._id}/edit-password`) 패스워드 수정하기 &rarr;
-                a(href=`/user/${user._id}/leave`).btn__leave 회원탈퇴
+                div.img__avatar
+                    br
+                    br
+                    br
+                    br
+                    br
+                    span 대표 이미지 없음
+            ul
+                li 이름 : #{user.name}
+                li 학번 : #{user.snum}
+                li 이메일 : #{user.email}
+                li 
+                    span 생일 : 
+                    span.date #{user.birthDay}
+                if user.attendance
+                    li 출석현황 : 완료
+                else
+                    li 출석현황 : 미완료
+            if loggedInUser._id == user._id
+                div.link__profile
+                    a(href=`/user/${user._id}/edit-profile`) 정보 수정하기 &rarr;
+                    if !user.socialOnly
+                        a(href=`/user/${user._id}/edit-password`) 패스워드 수정하기 &rarr;
+                    button.userDelete 회원탈퇴
+block scripts
+    script(src="/assets/js/transformDate.js")
+    script(src="/assets/js/userDelete.js")

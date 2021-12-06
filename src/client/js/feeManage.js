@@ -1,11 +1,15 @@
 const submitFees = document.querySelectorAll(".submitFee");
 const plusFees = document.querySelectorAll(".plusFee");
 const minusFees = document.querySelectorAll(".minusFee");
+const btnSubmitAll = document.querySelector(".btnSubmitAll");
 
-const handleSubmitFeeClick = async (event) => {
+const handleSubmitFeeClick = (event) => {
     event.preventDefault();
-    const user = event.path[3];
-    console.log(user.dataset.id);
+    const user = event.path[2];
+    SubmitFee(user);
+};
+
+const SubmitFee = async (user) => {
     const feeData = user.querySelector(".currentFee");
     const penaltyData = user.querySelector(".currentPenalty");
     const plusPenalty = user.querySelector(".plusPenalty");
@@ -26,7 +30,7 @@ const handleSubmitFeeClick = async (event) => {
     minusPenalty.value = 0;
     submitPenalty.value = 0;
 
-    const userFee = parseInt(user.querySelector(".currentFee").textContent);
+    const userFee = parseInt(feeData.textContent);
     
     await fetch(`/api/fee/${user.dataset.id}/manageFee`, {
         method: "POST",
@@ -38,11 +42,11 @@ const handleSubmitFeeClick = async (event) => {
             penalty: currentPenalty,
             submit: submitValue}),
     });
-}
+};
 
 const handleSetFeeClick = (event) => {
     event.preventDefault();
-    const user = event.path[3];
+    const user = event.path[2];
     const feeData = user.querySelector(".currentFee");
     let curretFee = parseInt(feeData.textContent);
     if(event.target.className === "plusFee"){
@@ -53,9 +57,17 @@ const handleSetFeeClick = (event) => {
     feeData.textContent = curretFee;
 }
 
+const handleAllSubmitFeeClick = (event) => {
+    event.preventDefault();
+    for (let i = 0; i < submitFees.length; i++) {
+        SubmitFee(submitFees[i].parentElement.parentElement);
+    }
+}
+
 for (let i = 0; i < submitFees.length; i++) {
     submitFees[i].addEventListener("click", handleSubmitFeeClick);
     plusFees[i].addEventListener("click", handleSetFeeClick);
     minusFees[i].addEventListener("click", handleSetFeeClick);
-
 }
+console.log(btnSubmitAll);
+btnSubmitAll.addEventListener("click", handleAllSubmitFeeClick);

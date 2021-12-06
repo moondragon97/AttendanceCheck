@@ -43,9 +43,3 @@ export const protectSocialUser = (req, res, next) => {
 };
 
 export const uploadImage = multer({dest:"uploads/images"});
-
-// export const dateFormat = (date) => {
-//     const _date = date.toISOString().split('T')[0];
-//    // console.log(_date);
-//     return _date;
-// }

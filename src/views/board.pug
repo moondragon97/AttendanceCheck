@@ -2,6 +2,9 @@ extends base.pug
 include mixins/posting
 
 block content
+    div.btn__enroll__posting
+        if loggedIn
+            a(href="/board/enroll") 게시물 작성하기
     if postings[0] != NULL
         nav.text__header__posting
             ul
@@ -14,8 +17,7 @@ block content
                 +posting(posting)
     else
         span 게시물이 없습니다.
-    if loggedIn
-        a(href="/board/enroll").btn__enroll__posting 게시물 작성하기
     form(method="POST")
         input(type="text", placeholder="제목", name="keyword")
         input(type="submit", value="검색") 
+    script(src="/assets/js/transformDate.js")

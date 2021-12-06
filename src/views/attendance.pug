@@ -4,8 +4,9 @@ block content
     form(method="POST")
         div
             if !isAttendanceCheck
-                span 00:00:00
+                span.clock 00:00:00
                 input(type="submit", value="출석")
             else
                 span=attendanceTime
                 input(type="submit", value="출석완료", disabled=true)
+    script(src="/assets/js/clock.js")
