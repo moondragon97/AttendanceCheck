@@ -30,10 +30,10 @@
     "nodemon": "^2.0.12",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
-    "webpack": "^5.64.1",
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "webpack": "^5.64.1",
     "babel-loader": "^8.2.3",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.5.0",
