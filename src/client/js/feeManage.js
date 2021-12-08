@@ -69,5 +69,5 @@ for (let i = 0; i < submitFees.length; i++) {
     plusFees[i].addEventListener("click", handleSetFeeClick);
     minusFees[i].addEventListener("click", handleSetFeeClick);
 }
-console.log(btnSubmitAll);
+
 btnSubmitAll.addEventListener("click", handleAllSubmitFeeClick);

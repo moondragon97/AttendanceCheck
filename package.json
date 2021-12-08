@@ -7,8 +7,12 @@
     "url": "git+https://github.com/moondragon97/AttendanceCheck.git"
   },
   "scripts": {
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack --mode=development -w"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +21,8 @@
   },
   "homepage": "https://github.com/moondragon97/AttendanceCheck#readme",
   "devDependencies": {
-    "@babel/core": "^7.14.8",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
     "@babel/node": "^7.14.7",
     "@babel/preset-env": "^7.14.8",
     "css-loader": "^6.5.1",

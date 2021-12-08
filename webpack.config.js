@@ -8,8 +8,8 @@ module.exports = {
             feeManage: jsBase + "feeManage",
             transformDate: jsBase + "transformDate",
             clock: jsBase + "clock",
-            userDelete: jsBase + "userDelete",},
-    mode: "development",
+            userDelete: jsBase + "userDelete",
+            userDataManage: jsBase + "userDataManage"},
     output:{
         filename: "js/[name].js",
         path: path.resolve(__dirname, "assets"),
@@ -32,5 +32,4 @@ module.exports = {
     plugins: [new MiniCssExtractPlugin({
         filename: "css/styles.css",
     })],
-    watch: true,
 };

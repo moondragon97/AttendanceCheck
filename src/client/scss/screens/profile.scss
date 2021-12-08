@@ -15,7 +15,7 @@
         margin: 0 auto;
         display: flex;
         flex-direction: column;
-        a{
+        a, p{
             width: 140px;
             padding: 5px;
             margin-bottom: 5px;
@@ -23,6 +23,7 @@
             background-color: white;
             color: black;
             text-align: center;
+            cursor: pointer;
         }
     }
     img{

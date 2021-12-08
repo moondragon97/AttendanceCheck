@@ -1,5 +1,5 @@
 import express from "express";
-import {finishGithubLogin, getAttendance, logout, postAttendance, startGithubLogin, getProfile, getProfileEdit, postProfileEdit, getPasswordEdit, postPasswordEdit, leave, getAttendanceCheck, getAttendanceEachCheck, deleteAttendance, checkData, grantAdmin, grantManager, getManageFee } from "../Controllers/userController";
+import {finishGithubLogin, getAttendance, logout, postAttendance, startGithubLogin, getProfile, getProfileEdit, postProfileEdit, getPasswordEdit, postPasswordEdit, leave, getAttendanceCheck, getAttendanceEachCheck, deleteAttendance, checkData, grantAdmin, grantManager, getManageFee, revokeManager } from "../Controllers/userController";
 import { protectNotAdmin, protectNotManager, protectNotUser, protectSocialUser, uploadImage } from "../middlewares";
 
 const rootRouter = express.Router();
@@ -19,6 +19,7 @@ rootRouter.route("/:id/edit-password").all(protectNotUser, protectSocialUser).ge
 
 rootRouter.post("/:id/leave", protectNotUser, leave);
 rootRouter.post("/:id/grant-manager", protectNotUser, protectNotAdmin, grantManager);
+rootRouter.post("/:id/revoke-manager", protectNotUser, protectNotAdmin, revokeManager);
 rootRouter.post("/:id/grant-admin", protectNotUser, protectNotAdmin, grantAdmin);
 
 export default rootRouter;

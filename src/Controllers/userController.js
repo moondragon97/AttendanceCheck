@@ -292,7 +292,7 @@ export const leave = async (req, res) => {
     const {user} = req.session;
     const {_id} = user;
     const paramId = req.params.id;
-    console.log("leave");
+
     // 관리자가 본인일 때 삭제 X
     if(user.admin && _id == paramId){
         return res.redirect("/user/check-data");
@@ -335,14 +335,31 @@ export const manageFee = async (req, res) => {
 // 총무 임명
 export const grantManager = async (req, res) => {
     const {id} = req.params;
-    const {_id} = req.session.user;
-    
+    const {user} = req.session;
+    const {_id} = user;
+    if(!user.admin){
+        return res.redirect("/");
+    }
     await User.findByIdAndUpdate({_id: id}, {manager: true});
     if(_id == id){
         req.session.user.manager = true;
     }
     return res.redirect("/user/check-data");
 };
+
+export const revokeManager = async (req, res) => {
+    const {id} = req.params;
+    const {user} = req.session;
+    const {_id} = user;
+    if(!user.admin){
+        return res.redirect("/");
+    }
+    await User.findByIdAndUpdate({_id: id}, {manager: false});
+    if(_id == id){
+        req.session.user.manager = false;
+    }
+    return res.redirect("/user/check-data");
+}
 
 // 관리자 위임
 export const grantAdmin = async (req, res) => {
@@ -357,7 +374,9 @@ export const grantAdmin = async (req, res) => {
     const targetUser = await User.findById(paramId);
     
     adminUser.admin = false;
+    adminUser.manager = false;
     targetUser.admin = true;
+    targetUser.manager = true;
 
     await adminUser.save();
     await targetUser.save();

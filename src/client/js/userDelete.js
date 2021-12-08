@@ -14,5 +14,3 @@ const handleClickButton = async () => {
 }
 
 btnDelete.addEventListener("click", handleClickButton)
-
-//window.location.href

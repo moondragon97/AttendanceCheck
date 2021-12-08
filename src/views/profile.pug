@@ -29,7 +29,7 @@ block content
                     a(href=`/user/${user._id}/edit-profile`) 정보 수정하기 &rarr;
                     if !user.socialOnly
                         a(href=`/user/${user._id}/edit-password`) 패스워드 수정하기 &rarr;
-                    button.userDelete 회원탈퇴
+                    p.userDelete.btn__leave 회원탈퇴
 block scripts
     script(src="/assets/js/transformDate.js")
     script(src="/assets/js/userDelete.js")

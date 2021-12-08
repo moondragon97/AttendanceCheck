@@ -1,6 +1,6 @@
 .data__users{
     display: block;
-    width: 80%;
+    width: 50%;
     margin: 0 auto;
     margin-top: 150px;
     ul{
@@ -9,27 +9,37 @@
     }
     
     li:nth-child(1){
-        width: 30%;
+        width: 200px;
     }
     
     li:nth-child(2){
-        width: 60%;
+        width: 200px;
     }
     li:nth-child(3){
         text-align: center;
-        background-color: green;
-        width: 8%;
+        width: 100px;
     }
     li:nth-child(4),
     li:nth-child(5){
         text-align: center;
-        width: 7%;
+        width: 80px;
         background-color: red;
     }
 
     li{
-        padding: 5px;
         margin: 1px;
+        margin-right: 5px;
     }
-       
+    p{
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .btnGrantManager{
+        background-color: green;
+    }
+    
+    .btnRevokeManager{
+        background-color: red;
+    }
 }
