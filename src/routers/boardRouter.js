@@ -1,12 +1,13 @@
 import express from "express";
-import {board, getEdit, getEnroll, postEdit, postEnroll, read, remove, search } from "../controllers/boardController";
-import { protectNotUser, protectSocialUser } from "../middlewares";
+import {board, getEdit, getEnroll, postEdit, postEnroll, read, remove, search } from "../Controllers/boardController";
+import { protectNotUser } from "../middlewares";
 
-const boardRouter = express.Router();
+const rootRouter = express.Router();
 
-boardRouter.route("/").get(board).post(search);
-boardRouter.route("/enroll").all(protectNotUser).get(getEnroll).post(postEnroll);
-boardRouter.get("/:id", read);
-boardRouter.route("/:id/edit").all(protectNotUser).get(getEdit).post(postEdit);
-boardRouter.get("/:id/remove", protectNotUser, remove);
-export default boardRouter;
+rootRouter.route("/").get(board).post(search);
+rootRouter.route("/enroll").all(protectNotUser).get(getEnroll).post(postEnroll);
+rootRouter.get("/:id", read);
+rootRouter.route("/:id/edit").all(protectNotUser).get(getEdit).post(postEdit);
+rootRouter.get("/:id/remove", protectNotUser, remove);
+
+export default rootRouter;

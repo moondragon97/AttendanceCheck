@@ -8,7 +8,7 @@ import Calendar from "../models/Calendar";
 export const getJoin = (req, res) => {
     return res.render("join", {titleName: "회원가입"});
 };
-console.log("33");
+
 // 회원가입 POST
 export const postJoin = async (req, res) => {
     const {userId, password, passwordConfirmation, name, email, snum, birthDay} = req.body;
