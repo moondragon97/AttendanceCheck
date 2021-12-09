@@ -1,10 +1,13 @@
 extends base.pug
 
 block content
-    container.profileContainer(data-id=loggedInUser._id)
+    container.profileContainer(data-id=user._id)
         div.show__profile
             if user.avatarUrl
-                img(src="/" + user.avatarUrl).img__avatar
+                if user.socialOnly
+                    img(src=user.avatarUrl).img__avatar
+                else
+                    img(src="/" + user.avatarUrl).img__avatar
             else
                 div.img__avatar
                     br
