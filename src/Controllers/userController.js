@@ -243,8 +243,9 @@ export const getProfileEdit = (req, res) => {
 export const postProfileEdit = async (req, res) => {
     const {body:{name, email, snum, birthDay}, file} = req;
     const {_id, avatarUrl} = req.session.user;
+    console.log(file);
     const updateUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file ? file.path : avatarUrl,
+        avatarUrl: file ? file.location : avatarUrl,
         email,
         name,
         snum,
