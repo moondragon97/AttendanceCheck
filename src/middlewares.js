@@ -82,5 +82,5 @@ export const uploadImage = multer({
     limits: {
         fileSize: 3000000,
     },
-    storage: s3AvatarUploader,//isHeroku ? s3AvatarUploader : undefined,
+    storage: isHeroku ? s3AvatarUploader : undefined,
 });
