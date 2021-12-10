@@ -66,7 +66,7 @@ export const logout = (req, res) => {
 // 출석체크 GET
 export const getAttendance = async (req, res) => {
     const {_id} = req.session.user;
-    const todayDate = new Date().toLocaleDateString('ko-KR');
+    const todayDate = new Date().toLocaleDateString('ko-KR', {timeZone: "Asia/Seoul"});
     const todayDataObject = await Calendar.findOne({date: todayDate}).populate("user");
     
     // 당일날의 데이터 객체 배열이 생성이 되어 있는지
@@ -87,10 +87,11 @@ export const getAttendance = async (req, res) => {
 
 // 출석체크 POST
 export const postAttendance = async (req, res) => {
+    var date = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
     const {_id} = req.session.user;
-    const todayDate = new Date().toLocaleDateString('ko-KR');
+    const todayDate = new Date().toLocaleDateString('ko-KR', {timeZone: "Asia/Seoul"});
     const todayDataObject = await Calendar.findOne({date: todayDate}).populate("user");
-    const attendance = {user: _id, time: new Date().toLocaleTimeString('ko-KR')};
+    const attendance = {user: _id, time: new Date().toLocaleTimeString('ko-KR', {timeZone: "Asia/Seoul"})};
 
     // 당일 정보의 출석 데이터 객체 배열이 생성이 안 되어 있으면 생성
     if(!todayDataObject){
