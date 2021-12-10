@@ -243,18 +243,18 @@ export const getProfileEdit = (req, res) => {
 export const postProfileEdit = async (req, res) => {
     const {body:{name, email, snum, birthDay}, file} = req;
     const {_id, avatarUrl} = req.session.user;
-    const {isHeroku} = req.session;
+    const isHeroku = process.env.NODE_ENV === "production";
     let changeAvataUrl = avatarUrl;
 
-    // if(file != undefined){
-    //     if(isHeroku){
-    //         changeAvataUrl = file.location;
-    //     }else{
-    //         changeAvataUrl = file.path;
-    //     }
-    // }
-    if(file!=undefined)
-        changeAvataUrl = file.location;
+    if(file != undefined){
+        if(isHeroku){
+            changeAvataUrl = file.location;
+        }else{
+            changeAvataUrl = file.path;
+        }
+    }
+    // if(file!=undefined)
+    //     changeAvataUrl = file.location;
     const updateUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: changeAvataUrl,//file ? (isHeroku ? file.location : file.path) : avatarUrl,
         email,
