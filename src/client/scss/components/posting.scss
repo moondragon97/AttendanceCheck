@@ -55,9 +55,11 @@ textarea{
         text-align: center;
         border-bottom: 1px solid white;
     }
-    p{
+    text{
     display: block;
-    margin: 80px 50px;
+    margin: 40px 80px;
+    white-space: pre-wrap;
+    font-size: 1.5rem;
     }
     a{
         display: block;

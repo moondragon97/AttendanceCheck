@@ -90,7 +90,7 @@ export const postAttendance = async (req, res) => {
     const {_id} = req.session.user;
     const todayDate = new Date().toLocaleDateString();
     const todayDataObject = await Calendar.findOne({date: todayDate}).populate("user");
-    const attendance = {user: _id, time: new Date().toLocaleTimeString()};
+    const attendance = {user: _id, time: new Date().toLocaleTimeString(s_ko)};
 
     // 당일 정보의 출석 데이터 객체 배열이 생성이 안 되어 있으면 생성
     if(!todayDataObject){
