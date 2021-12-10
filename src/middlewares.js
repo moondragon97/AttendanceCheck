@@ -3,6 +3,7 @@ import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
 const isHeroku = process.env.NODE_ENV === "production";
+console.log(isHeroku);
 export const localsMiddleware = (req, res, next) => {
     res.locals.loggedInUser = req.session.user || {};
     res.locals.siteName = "Lab";
