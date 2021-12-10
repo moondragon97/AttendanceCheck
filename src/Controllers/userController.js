@@ -244,8 +244,10 @@ export const postProfileEdit = async (req, res) => {
     const {body:{name, email, snum, birthDay}, file} = req;
     const {_id, avatarUrl} = req.session.user;
     const {isHeroku} = req.session;
+    const isFile = file != undefined;
+
     const updateUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,//file ? (isHeroku ? file.location : file.path) : avatarUrl,
+        avatarUrl: isFile ? (isHeroku ? file.location : file.path) : avatarUrl,//file ? (isHeroku ? file.location : file.path) : avatarUrl,
         email,
         name,
         snum,
