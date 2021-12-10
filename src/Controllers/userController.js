@@ -246,13 +246,15 @@ export const postProfileEdit = async (req, res) => {
     const {isHeroku} = req.session;
     let changeAvataUrl = avatarUrl;
 
-    if(file != undefined){
-        if(isHeroku){
-            changeAvataUrl = file.location;
-        }else{
-            changeAvataUrl = file.path;
-        }
-    }
+    // if(file != undefined){
+    //     if(isHeroku){
+    //         changeAvataUrl = file.location;
+    //     }else{
+    //         changeAvataUrl = file.path;
+    //     }
+    // }
+    if(isHeroku)
+        changeAvataUrl = file.location;
     const updateUser = await User.findByIdAndUpdate(_id, {
         avatarUrl: changeAvataUrl,//file ? (isHeroku ? file.location : file.path) : avatarUrl,
         email,
