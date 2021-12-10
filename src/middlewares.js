@@ -2,6 +2,15 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 
+const isHeroku = process.env.NODE_ENV === "production";
+export const localsMiddleware = (req, res, next) => {
+    res.locals.loggedInUser = req.session.user || {};
+    res.locals.siteName = "Lab";
+    res.locals.loggedIn = req.session.loggedIn;
+    res.locals.isHeroku = isHeroku
+    next();
+};
+
 const s3 = new aws.S3({
     credentials: {
         accessKeyId: process.env.AWS_ID,
@@ -15,12 +24,23 @@ const s3AvatarUploader = multerS3({
     acl: "public-read",
 });
 
-export const localsMiddleware = (req, res, next) => {
-    res.locals.loggedInUser = req.session.user || {};
-    res.locals.siteName = "Lab";
-    res.locals.loggedIn = req.session.loggedIn;
+console.log(isHeroku);
+export const s3AvatarRemove = (req, res, next) => {
+    const userAvatarUrl = req.session.user.avatarUrl
+    if(req.file && userAvatarUrl && isHeroku){
+        s3.deleteObject({
+            Bucket: "lab3floor/avatar",
+            Key: userAvatarUrl.split('/')[4],
+        },
+        (err, data)=>{
+            if(err){
+                throw err;
+            }
+        })
+    }
     next();
 };
+
 
 export const protectNotUser = (req, res, next) => {
     if(!req.session.loggedIn){
@@ -58,9 +78,9 @@ export const protectSocialUser = (req, res, next) => {
 };
 
 export const uploadImage = multer({
-    dest:"uploads/images",
+    dest:"uploads/images/",
     limits: {
         fileSize: 3000000,
     },
-    storage: s3AvatarUploader,
+    storage: isHeroku ? s3AvatarUploader : undefined,
 });

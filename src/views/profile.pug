@@ -4,7 +4,10 @@ block content
     container.profileContainer(data-id=user._id)
         div.show__profile
             if user.avatarUrl
-                img(src=user.avatarUrl).img__avatar
+                if isHeroku
+                    img(src=user.avatarUrl).img__avatar
+                else
+                    img(src="/" + user.avatarUrl).img__avatar
             else
                 div.img__avatar
                     br

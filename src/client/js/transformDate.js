@@ -1,4 +1,6 @@
 const dates = document.querySelectorAll(".date");
+const userBirthDayValue = document.querySelector(".birthDayValue");
+const userBirthDay = document.querySelector(".birthDay")
 
 // Date Format
 function dateFormat(date) {
@@ -17,3 +19,6 @@ function dateFormat(date) {
 for (let i = 0; i < dates.length; i++) {
     dates[i].innerHTML = dateFormat(dates[i].innerHTML)
 }
+
+if(userBirthDay)
+    userBirthDay.value = dateFormat(userBirthDayValue.value)
