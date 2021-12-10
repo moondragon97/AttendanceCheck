@@ -243,9 +243,9 @@ export const getProfileEdit = (req, res) => {
 export const postProfileEdit = async (req, res) => {
     const {body:{name, email, snum, birthDay}, file} = req;
     const {_id, avatarUrl} = req.session.user;
-    const isHeroku = process.env.NODE_ENV === "production";
+    const {isHeroku} = req.session;
     const updateUser = await User.findByIdAndUpdate(_id, {
-        avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
+        avatarUrl: file.location,//file ? (isHeroku ? file.location : file.path) : avatarUrl,
         email,
         name,
         snum,

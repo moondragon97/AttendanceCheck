@@ -25,7 +25,6 @@ const s3AvatarUploader = multerS3({
     acl: "public-read",
 });
 
-console.log(isHeroku);
 export const s3AvatarRemove = (req, res, next) => {
     const userAvatarUrl = req.session.user.avatarUrl
     if(req.file && userAvatarUrl && isHeroku){
@@ -83,5 +82,5 @@ export const uploadImage = multer({
     limits: {
         fileSize: 3000000,
     },
-    storage: isHeroku ? s3AvatarUploader : undefined,
+    storage: s3AvatarUploader,//isHeroku ? s3AvatarUploader : undefined,
 });
