@@ -13,6 +13,9 @@ import User from "./models/User";
 // 랩비 스케줄링
 cron.schedule('0 0 0 1 * *', () => {
     feeInit();
+}, {
+    scheduled: true,
+    timezone: "Asia/Seoul",
 })
 
 // 랩비 초기화

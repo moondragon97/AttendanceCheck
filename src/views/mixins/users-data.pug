@@ -1,19 +1,18 @@
 mixin userData(userData)
-    container.userContainer(data-id=userData._id)
-        ul
-            li
-                a(href=`/user/${userData._id}`) #{userData.name}(#{userData.snum})
-            li
-                span 벌금 : #{parseInt(userData.fee)+parseInt(userData.penalty)}
-            if loggedInUser.admin
-                if !userData.admin
-                    if !userData.manager
-                        li
-                            p.btnGrantManager 총무임명
-                    else
-                        li
-                            p.btnRevokeManager 총무제명
-                    li
-                        p.btnGrantAdmin 랩장위임
-                    li
-                        p.btnUserDelete 회원삭제
+    tr.userContainer(data-id=userData._id)
+        td
+            a(href=`/user/${userData._id}`) #{userData.name}(#{userData.snum})
+        td
+            span 벌금 : #{parseInt(userData.fee)+parseInt(userData.penalty)}
+        if loggedInUser.admin
+            if !userData.admin
+                if !userData.manager
+                    td
+                        button.btnGrantManager 총무임명
+                else
+                    td
+                        button.btnRevokeManager 총무제명
+                td
+                    button.btnGrantAdmin 랩장위임
+                td
+                    button.btnUserDelete 회원삭제

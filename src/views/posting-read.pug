@@ -33,7 +33,12 @@ html(lang="ko")
         div.read__posting
             h1 #{titleName}
             text=posting.content
-            if(posting.owner._id == loggedInUser._id)
-                a(href=`/board/${posting._id}/edit`) 게시물 수정 &rarr;
-                a(href=`/board/${posting._id}/remove`) 게시물 삭제
+            if(posting.owner._id == loggedInUser._id || loggedInUser.admin)
+                ul
+                    li
+                        a(href=`/board/${posting._id}/edit`) 
+                            button 게시물 수정
+                    li
+                        button.btn__postingDelete.deletePosting(data-id=posting._id) 게시물 삭제
 script(src="/assets/js/main.js")
+script(src="/assets/js/postingDelete.js")

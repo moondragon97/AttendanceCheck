@@ -9,12 +9,14 @@ mixin feeData(user)
         td
             input(type="submit", value="5000감소").minusFee
         td
+            input(placeholder="0", type="number").submitFee
+        td
             span.currentPenalty=user.penalty
         td
-            input(placeholder="0", name="increase", type="number").plusPenalty
+            input(placeholder="0", type="number").plusPenalty
         td
-            input(placeholder="0", name="decrease", type="number").minusPenalty
+            input(placeholder="0", type="number").minusPenalty
         td
-            input(placeholder="0", name="charge", type="number").submitPenalty
+            input(placeholder="0", type="number").submitPenalty
         td
-            input(type="submit", value="저장").submitFee
+            input(type="submit", value="저장").btnSubmitFee

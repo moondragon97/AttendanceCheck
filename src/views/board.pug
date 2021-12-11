@@ -17,7 +17,7 @@ block content
                 +posting(posting)
     else
         span 게시물이 없습니다.
-    form(method="POST")
+    form(method="POST").btn__enroll__posting
         input(type="text", placeholder="제목", name="keyword")
         input(type="submit", value="검색") 
     script(src="/assets/js/transformDate.js")

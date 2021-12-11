@@ -1,7 +1,7 @@
-form:not(.enroll__posting){
+form:not(.btn__enroll__posting, .enroll__posting){
     max-width: 420px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 250px;
     padding: 30px;
     background-color: gray;
     border-radius: 10px;

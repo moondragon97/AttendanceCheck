@@ -9,7 +9,7 @@ rootRouter.get("/manage-fee", protectNotUser, protectNotManager, getManageFee);
 rootRouter.get("/logout", protectNotUser, logout);
 rootRouter.route("/attendance").all(protectNotUser).get(getAttendance).post(postAttendance);
 rootRouter.get("/attendance/check", protectNotUser, getAttendanceCheck);
-rootRouter.get("/attendance/check/:id/delete", protectNotUser, protectNotAdmin, deleteAttendance);
+rootRouter.post("/attendance/check/:id/delete", protectNotUser, protectNotAdmin, deleteAttendance);
 rootRouter.get("/attendance/:id", protectNotUser, getAttendanceEachCheck);
 rootRouter.get("/github/start", startGithubLogin);
 rootRouter.get("/github/finish", finishGithubLogin);

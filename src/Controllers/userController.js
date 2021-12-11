@@ -333,16 +333,32 @@ export const checkData = async (req, res) => {
 
 // 회비 관리 GET
 export const getManageFee = async (req, res) => {
-    const users = await User.find({}).sort({'joinAt': -1});
+    const users = await User.find({npc: false}).sort({'joinAt': -1});
+    const npc = await User.findOne({npc: true});
 
-    return res.render("manage-fee", {titleName: "회비관리", users});
+    return res.render("manage-fee", {titleName: "회비관리", users, npc});
 };
 
 export const manageFee = async (req, res) => {
     const {id} = req.params; 
-    const {fee, penalty, submit} = req.body;
+    const {fee, penalty, submitPenalty, submitFee} = req.body;
     
-    await User.findByIdAndUpdate(id, {fee, penalty, totalFee: submit});
+    const user = await User.findById(id);
+    const npcFee = await User.findOne({npc: true});
+    
+    user.fee = fee;
+    user.penalty = penalty;
+    user.totalPenalty += submitPenalty;
+    npcFee.totalPenalty += submitFee + submitPenalty;
+    user.save();
+    npcFee.save();
+};
+
+export const updateTotalFee = async (req, res) => {
+    const npc = await User.findOne({npc: true});
+    const {updateValue} = req.body;
+    npc.totalPenalty = updateValue;
+    npc.save();
 }
 
 // 총무 임명

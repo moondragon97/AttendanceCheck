@@ -19,9 +19,6 @@
 .attendance__date__info{
     font-size: 20px;
     font-weight: 800;
-    a{
-        float: right;
-    }
 }
 
 .attendance__date__users{
@@ -50,5 +47,20 @@
 .btn__date__remove{
     float: right;
     background-color: red;
-    padding: 2px;
+    border: 0px;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+.btn__date__allRemove{
+    margin-top: 50px;
+    text-align: center;
+    button{
+        padding: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: red;
+        border: 0px;
+        border-radius: 5px;
+    }
 }

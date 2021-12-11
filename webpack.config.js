@@ -9,7 +9,9 @@ module.exports = {
             transformDate: jsBase + "transformDate",
             clock: jsBase + "clock",
             userDelete: jsBase + "userDelete",
-            userDataManage: jsBase + "userDataManage"},
+            userDataManage: jsBase + "userDataManage",
+            postingDelete: jsBase + "postingDelete",
+            attendanceDelete: jsBase + "attendanceDelete"},
     output:{
         filename: "js/[name].js",
         path: path.resolve(__dirname, "assets"),

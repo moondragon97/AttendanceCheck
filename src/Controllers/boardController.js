@@ -41,22 +41,30 @@ export const postEnroll = async (req, res) => {
 export const read = async (req, res) => {
     const {id} = req.params;
     const posting = await Posting.findById(id);
+
     return res.render("posting-read", {titleName: posting.title, posting})
 };
 
 export const getEdit = async (req, res) => {
     const {id} = req.params;
-    const sessionId = req.session.user._id;
+    const {user} = req.session;
+    const sessionId = user._id; 
 
     const posting = await Posting.findById(id).populate("owner");
-    const postingOwnerId = posting.owner.id;
 
-    if(sessionId !== postingOwnerId){
-        return res.redirect("/board");
+    if(posting.owner !== null){
+        const postingOwnerId = posting.owner.id;
+        if(sessionId == postingOwnerId){
+            return res.render("posting-edit", {titleName: "게시물 수정", posting});
+        }
+    }
+    if(user.admin){
+        return res.render("posting-edit", {titleName: "게시물 수정", posting});
     }
 
-    return res.render("posting-edit", {titleName: "게시물 수정", posting});
-}
+    return res.redirect("/board");
+
+};
 
 export const postEdit = async (req, res) => {
     const {title, content} = req.body;
@@ -66,18 +74,23 @@ export const postEdit = async (req, res) => {
         content,
     });
     return res.redirect(`/board/${id}`);
-}
+};
 
 export const remove = async (req, res) => {
     const {id} = req.params;
-    const sessionId = req.session.user._id;
+    const {user} = req.session;
+    const sessionId = user._id; 
 
     const posting = await Posting.findById(id).populate("owner");
-    const postingOwnerId = posting.owner.id;
-    if(sessionId !== postingOwnerId){
-        return res.redirect("/board");
+    if(posting.owner !== null){
+        const postingOwnerId = posting.owner.id;
+        if(sessionId == postingOwnerId){
+            await Posting.findByIdAndRemove(id);
+            return res.redirect("/board");
+        }
     }
-
-    await Posting.findByIdAndRemove(id);
+    if(user.admin){
+        await Posting.findByIdAndRemove(id);
+    }
     return res.redirect("/board");
-}
+};

@@ -8,6 +8,6 @@ rootRouter.route("/").get(board).post(search);
 rootRouter.route("/enroll").all(protectNotUser).get(getEnroll).post(postEnroll);
 rootRouter.get("/:id", read);
 rootRouter.route("/:id/edit").all(protectNotUser).get(getEdit).post(postEdit);
-rootRouter.get("/:id/remove", protectNotUser, remove);
+rootRouter.post("/:id/remove", protectNotUser, remove);
 
 export default rootRouter;

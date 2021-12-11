@@ -13,4 +13,5 @@ const handleClickButton = async () => {
     }
 }
 
-btnDelete.addEventListener("click", handleClickButton)
+if(btnDelete)
+    btnDelete.addEventListener("click", handleClickButton)

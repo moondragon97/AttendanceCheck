@@ -2,8 +2,10 @@ extends base
 include mixins/users-data
 
 block content
-    div.data__users
-        each user in users
-            +userData(user)
+    div
+        table.data__users
+            tbody
+                each user in users
+                    +userData(user)
 block scripts
     script(src="/assets/js/userDataManage.js")

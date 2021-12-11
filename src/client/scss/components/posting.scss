@@ -63,7 +63,16 @@ textarea{
     }
     a{
         display: block;
-        margin-bottom: 10px;
-        padding-left: 10px;
+        width: 80px;
     }
+    ul{
+        float:right;
+    }
+    li{
+        margin-right: 60px;
+        margin-bottom: 5px;
+    }
+}
+.btn__postingDelete{
+    background-color: $red;
 }

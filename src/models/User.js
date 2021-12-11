@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     npc: {type: Boolean, default: false},
     penalty: {type: Number, default: 0},
     fee: {type: Number, default: 0},
-    totalFee: {type: Number, default: 0},
+    totalPenalty: {type: Number, default: 0},
 });
 
 userSchema.pre('save', async function() {

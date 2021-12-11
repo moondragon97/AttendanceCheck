@@ -9,14 +9,25 @@ block content
                 th 현재 랩비
                 th 랩비 추가
                 th 랩비 감소
-                th 벌금
+                th 제출한 랩비
+                th 현재 벌금
                 th 벌금 추가
                 th 벌금 감소
                 th 제출한 벌금
                 th
             each user in users
                 +feeData(user)
-        div.submit__all
-            button.btnSubmitAll 전체 저장
+    div.submit__all
+        button.btnSubmitAll 전체 저장
+    container.npc__fee.npcFeeData
+        ul
+            li
+                p 총 랩비
+            li
+                p.totalPenalty=npc.totalPenalty
+            li
+                input(type="Number", placeholder="랩비 변경", value=npc.totalPenalty).npc__inputFee.inputTotalPenalty
+            li
+                input(type="submit", value="변경").btnTotalPenalty
 block scripts
     script(src="/assets/js/feeManage.js")
