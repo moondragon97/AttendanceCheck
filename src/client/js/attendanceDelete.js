@@ -7,7 +7,7 @@ const DeletePosting = async (id) => {
     });
 };
 
-const handleRemoveAttendance = (event) => {
+const handleRemoveAttendance = async (event) => {
     const attendanceId = event.path[3].dataset.id;
     if(confirm("정말 삭제하시겠습니까?") == true){
         await DeletePosting(attendanceId);
