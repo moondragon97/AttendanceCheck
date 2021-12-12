@@ -36,9 +36,9 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,     // 암호화를 위한 것이다. 우선 아무 string값을 넣는다.
     resave: false,          // 변화가 있든 없든 세션을 매번 저장할지(갱실할지).
     saveUninitialized: false,  // 아무 변화 없는 새로운 session을 계속 저장할지(쌓을지).
-    cookie:{
-        maxAge: 2000000,
-    },
+    // cookie:{
+    //     maxAge: 2000000,
+    // },
     store: mongoStore.create({mongoUrl: process.env.DB_URL}),
 }));
 
